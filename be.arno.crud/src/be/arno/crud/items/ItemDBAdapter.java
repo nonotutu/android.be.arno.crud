@@ -132,6 +132,10 @@ public class ItemDBAdapter {
 		Log.i("db.delete", Integer.toString(i));
 	}
 
+	public int getCount() {
+		Cursor c = db.query(TABLE_ITEMS, new String[] {COLUMN_ID}, null, null, null, null, null, null);
+		return c.getCount();				
+	}
 
 	public Item getFirst() {
 		//Item i;

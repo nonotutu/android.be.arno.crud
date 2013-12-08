@@ -1,5 +1,8 @@
 package be.arno.crud.items;
 
+import android.content.Context;
+//import be.arno.crud.items.ItemDBAdapter;
+
 public class Item {
 
 	private int id;
@@ -65,6 +68,5 @@ public class Item {
 		if ( this.name.isEmpty() || this.name == null )
 			return false;
 	return true;
-	}
-	
+	}	
 }

@@ -24,7 +24,7 @@ public class TestActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
 
-		txvw = (TextView)findViewById(R.id.textView1);
+		txvw = (TextView)findViewById(R.id.itemIndex_txvwCount);
 		bttn = (Button)findViewById(R.id.button1);
 
 		bttn.setOnClickListener(new OnClickListener() {			

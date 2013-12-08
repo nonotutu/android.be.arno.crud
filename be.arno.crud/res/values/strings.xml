@@ -15,6 +15,7 @@
     <!-- Item -->
     <string name="item">Item</string>
     <string name="items">Items</string>
+    <string name="item_count">Item count</string>
     <string name="id">ID</string>
     <string name="name">Name</string>
     <string name="date">Date</string>

@@ -11,9 +11,27 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ItemIndexActivity extends Activity {
 
+	private TextView txvwCount;
+	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+
+		setCount();
+	}
+	
+	private void setCount() {
+		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
+		itemAdapter.openReadable();
+		int i = itemAdapter.getCount();
+		itemAdapter.close();
+		txvwCount.setText(""+i);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,7 +40,10 @@ public class ItemIndexActivity extends Activity {
 	Button bttnList = (Button)findViewById(R.id.itemIndex_bttnList);
 	Button bttnNew = (Button)findViewById(R.id.itemIndex_bttnNew);
 	Button bttnClose = (Button)findViewById(R.id.itemIndex_bttnClose);
-	
+	txvwCount = (TextView)findViewById(R.id.itemIndex_txvwCount);
+
+	setCount();
+		
 	bttnClose.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
