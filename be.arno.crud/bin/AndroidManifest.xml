@@ -46,14 +46,6 @@
             android:name="be.arno.crud.items.ItemIndexActivity"
             android:label="@string/title_activity_item_index" >
         </activity>
-        <activity
-            android:name="be.arno.crud.TestTabSwipeActivity"
-            android:label="@string/title_activity_test_tab_swipe"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
-        </activity>
     </application>
 
 </manifest>
