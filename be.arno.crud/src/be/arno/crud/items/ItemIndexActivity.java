@@ -1,7 +1,6 @@
 package be.arno.crud.items;
 
 import be.arno.crud.R;
-import be.arno.crud.TestActivity;
 import be.arno.crud.R.layout;
 import be.arno.crud.R.menu;
 import android.os.Bundle;

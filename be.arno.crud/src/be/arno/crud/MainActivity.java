@@ -32,8 +32,8 @@ public class MainActivity extends Activity {
 		bttnTest.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), TestActivity.class);
-				startActivity(i);
+				//Intent i = new Intent(getApplicationContext(), TestActivity.class);
+				//startActivity(i);
 			}
 		});
 
