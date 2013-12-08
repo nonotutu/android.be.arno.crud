@@ -3,7 +3,7 @@
 
     <string name="app_name">be.arno.crud</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- Activities Titles -->
     <string name="title_activity_item_index">Items</string>
     <string name="title_activity_item_create">Create Item</string>
@@ -11,7 +11,7 @@
     <string name="title_activity_item_show">Show Item</string>
     <string name="title_activity_item_edit">Edit Item</string>
     <string name="title_activity_test">TestActivity</string>
-    
+
     <!-- Item -->
     <string name="item">Item</string>
     <string name="items">Items</string>
@@ -38,5 +38,9 @@
     <string name="close">Close</string>
     <string name="cancel">Cancel</string>
     <string name="sureDelete">Delete this item ?</string>
-    
+    <string name="title_activity_test_tab_swipe">TestTabSwipeActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
 </resources>
