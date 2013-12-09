@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -27,14 +28,23 @@ import android.widget.TextView;
 
 public class ItemListActivity extends Activity {
 
-	private int filter;
+	// Contiendra le texte et l'ID du filtre
+	private ListFilter listFilter;
+	
+	// Liste des filtres
 	private ArrayAdapter<ListFilter> filterListArrayAdapter;
-	private ListView lsvwList;
-	private ArrayAdapter<Item> itemArrayAdapter;
-	ArrayList<Item> items = null;
-	private Button bttnFilter;
-	private TextView txvwCount;
 
+	// Liste des Items
+	ArrayList<Item> items = null;
+
+	// Adapter de la liste des Items
+	private ArrayAdapter<Item> itemArrayAdapter;
+	
+	// Autres views
+	private ListView lsvwList;  // Liste
+	private Button bttnFilter;  // Bouton du filtre
+	private TextView txvwCount; // Nombre de résultats
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,18 +53,24 @@ public class ItemListActivity extends Activity {
 		
 		txvwCount = (TextView)findViewById(R.id.itemList_txvwCount);
 		
-		// filtre par défaut
-		filter = 0;
+		// Initialisation de la liste des filtres
 		initFilter();
 
+		// Initialisation du filtre par défaut
+		listFilter = filterListArrayAdapter.getItem(0);
+		
+		// Button du filtre, redirige vers la métode de sélection du filtre
 		bttnFilter = (Button)findViewById(R.id.list_bttnFilter);
 		bttnFilter.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				filterChoice();
+				//filterChoice();
+				AlertDialog.Builder ad = dialogFilterSelect();
+				ad.show();
 			}
 		});
 		
+		// Button de fermeture, termine l'activité
 		Button bttnClose = (Button)findViewById(R.id.list_bttnClose);
 		bttnClose.setOnClickListener(new OnClickListener() {
 			@Override
@@ -63,7 +79,9 @@ public class ItemListActivity extends Activity {
 			}
 		});
 
+		// ListView
 		lsvwList = (ListView)findViewById(R.id.list_lsvwList);
+		// ListView onClick
 		lsvwList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -75,6 +93,7 @@ public class ItemListActivity extends Activity {
 			}
 		});
 
+		// ListView onLongClick
 		lsvwList.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -85,12 +104,15 @@ public class ItemListActivity extends Activity {
 			}
 		});
 		
+		// Peuple _items_ en fonction du _listFilter_
 		List<Item> items = getList();
+		
+		// Affiche la liste d'Items et le nom du filtre
 		fillList(items);
 	}
 
 	
-	// refresh on back
+	// Met à jour la liste au _restart_ de l'_activity_
 	@Override
 	protected void onRestart() {
 		super.onRestart();
@@ -98,14 +120,15 @@ public class ItemListActivity extends Activity {
 		fillList(getList());
 	}
 
-	
+
+	// Récupère la liste selon le _listFilter_ depuis la DB via l'adapter
 	private List<Item> getList() {
 
 		List<Item> items = null;
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openReadable();
 		
-		switch(filter) {
+		switch(listFilter.getRsql()) {
 			case 1:
 				items = itemAdapter.getOnlyWithDate();
 				break;
@@ -119,38 +142,50 @@ public class ItemListActivity extends Activity {
 		
 	}
 
-
+	// Affiche la liste filtrée dans le ListView
 	private void fillList(List<Item> items) {
 		itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, items);
 		lsvwList.setAdapter(itemArrayAdapter);
 		txvwCount.setText(getString(R.string.items_found) + ": " + items.size());
+		bttnFilter.setText(getString(R.string.filter) + ": "
+		           + listFilter.getName());
 	}
 	
 
-	public void filterChoice() {
-
-		AlertDialog.Builder builderSingle = new AlertDialog.Builder(ItemListActivity.this);
-        builderSingle.setNegativeButton("cancel",
+	// Dialog du choix du filtre, depuis _filterListArrayAdapter_
+	//public void filterChoice() {
+	public AlertDialog.Builder dialogFilterSelect() {
+	
+		AlertDialog.Builder adb = new AlertDialog.Builder(ItemListActivity.this);
+        
+		adb.setNegativeButton(R.string.cancel,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        builderSingle.setAdapter(filterListArrayAdapter,
+		// TODO : ne pas confondre l'int de la list et l'int de l'adapter
+        adb.setSingleChoiceItems(filterListArrayAdapter, listFilter.getRsql(),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    	filter = filterListArrayAdapter.getItem(which).getRsql();
-                    	bttnFilter.setText(getString(R.string.filter) + ": "
-                    			           + filterListArrayAdapter.getItem(which).getName());
-                		fillList(getList());
+                    	listFilter = filterListArrayAdapter.getItem(which);
+                		dialog.dismiss();
                     }
                 });
-        builderSingle.show();
+        adb.setOnDismissListener(
+        		new OnDismissListener() {
+        			@Override
+        			public void onDismiss(DialogInterface dialog) {
+        				fillList(getList());				
+        			}
+        		});
+		return adb;
         }
+	
 
-
+	// Initialisation de l'adapter de la liste des _listFilter_
 	public void initFilter() {
 		filterListArrayAdapter = new ArrayAdapter<ListFilter>(
                 ItemListActivity.this,
