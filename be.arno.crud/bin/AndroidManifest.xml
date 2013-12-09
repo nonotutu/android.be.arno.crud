@@ -46,6 +46,10 @@
             android:name="be.arno.crud.items.ItemIndexActivity"
             android:label="@string/title_activity_item_index" >
         </activity>
+        <activity
+            android:name="be.arno.crud.items.ItemSearchActivity"
+            android:label="@string/title_activity_item_search" >
+        </activity>
     </application>
 
 </manifest>

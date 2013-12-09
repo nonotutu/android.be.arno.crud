@@ -20,7 +20,6 @@ public class ItemIndexActivity extends Activity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-
 		setCount();
 	}
 	
@@ -37,35 +36,56 @@ public class ItemIndexActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_index);
 
-	Button bttnList = (Button)findViewById(R.id.itemIndex_bttnList);
-	Button bttnNew = (Button)findViewById(R.id.itemIndex_bttnNew);
-	Button bttnClose = (Button)findViewById(R.id.itemIndex_bttnClose);
-	txvwCount = (TextView)findViewById(R.id.itemIndex_txvwCount);
-
-	setCount();
+		txvwCount = (TextView)findViewById(R.id.itemIndex_txvwCount);
+	
+		setCount();
+			
+		// VFEC
+		Button bttnNew = (Button)findViewById(R.id.itemIndex_bttnNew);
+		bttnNew.setOnClickListener(
+			new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getApplicationContext(), ItemNewActivity.class);
+					startActivity(i);
+				}
+			}
+		);
+	
+		// VFEC
+		Button bttnList = (Button)findViewById(R.id.itemIndex_bttnList);
+		bttnList.setOnClickListener(
+			new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getApplicationContext(), ItemListActivity.class);
+					startActivity(i);
+				}
+			}
+		);
+	
+		// VFEC
+		Button bttnSearch = (Button)findViewById(R.id.itemIndex_bttnSearch);
+		bttnSearch.setOnClickListener(
+			new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getApplicationContext(), ItemSearchActivity.class);
+					startActivity(i);
+				}
+			}
+		);
+	
+		// VFEC
+		Button bttnClose = (Button)findViewById(R.id.itemIndex_bttnClose);
+		bttnClose.setOnClickListener(
+			new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+				}
+			}
+		);
 		
-	bttnClose.setOnClickListener(new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			finish();
-		}
-	});
-	
-	bttnNew.setOnClickListener(new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Intent i = new Intent(getApplicationContext(), ItemNewActivity.class);
-			startActivity(i);
-		}
-	});
-
-	bttnList.setOnClickListener(new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Intent i = new Intent(getApplicationContext(), ItemListActivity.class);
-			startActivity(i);
-		}
-	});
-}
-	
+	}
 }

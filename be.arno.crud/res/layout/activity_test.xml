@@ -9,7 +9,7 @@
     tools:context=".TestActivity" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/itemSearch_bttnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,9 +21,9 @@
         android:id="@+id/itemIndex_txvwCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/button1"
+        android:layout_alignLeft="@+id/itemSearch_bttnSearch"
+        android:layout_alignRight="@+id/itemSearch_bttnSearch"
+        android:layout_below="@+id/itemSearch_bttnSearch"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

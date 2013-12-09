@@ -2,10 +2,7 @@ package be.arno.crud.items;
 
 import be.arno.crud.ListFilter;
 import be.arno.crud.R;
-import be.arno.crud.R.id;
-import be.arno.crud.R.layout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -31,13 +28,10 @@ public class ItemListActivity extends Activity {
 	// Contiendra le texte et l'ID du filtre
 	private ListFilter listFilter;
 	
-	// Liste des filtres
+	// Adapter de _listFilter_
 	private ArrayAdapter<ListFilter> filterListArrayAdapter;
 
-	// Liste des Items
-	ArrayList<Item> items = null;
-
-	// Adapter de la liste des Items
+	// Adapter de la liste des _Item_
 	private ArrayAdapter<Item> itemArrayAdapter;
 	
 	// Autres views
@@ -138,10 +132,10 @@ public class ItemListActivity extends Activity {
 			}
 			
 		itemAdapter.close();
-		return items;
-		
+		return items;		
 	}
 
+	
 	// Affiche la liste filtrée dans le ListView
 	private void fillList(List<Item> items) {
 		itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, items);

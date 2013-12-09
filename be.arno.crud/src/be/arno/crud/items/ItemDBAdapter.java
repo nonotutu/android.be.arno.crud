@@ -125,7 +125,23 @@ public class ItemDBAdapter {
 		return items;
 	}
 
+	
+	public List<Item> getSearchOnName(String search) {
+		List<Item> items = new ArrayList<Item>();
+		String[] columns = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
+		// TODO : sécuriser des injections SQL
+		Cursor c = db.query(TABLE_ITEMS, columns, "NAME LIKE '%" + search + "%'", null, null, null, null);
+		int i = 0;
+		c.moveToFirst();
+		while ( i < c.getCount() ) {
+			items.add(cursorToItem(c));
+			c.moveToNext();
+			i = i + 1;
+		}
+		return items;
+	}
 
+	
 	public void delete(Item item) {
 		int i = 0;
 		i = db.delete(TABLE_ITEMS, COLUMN_ID + " = " + item.getId(), null);

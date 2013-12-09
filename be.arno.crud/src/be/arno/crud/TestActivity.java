@@ -25,7 +25,7 @@ public class TestActivity extends Activity {
 		setContentView(R.layout.activity_test);
 
 		txvw = (TextView)findViewById(R.id.itemIndex_txvwCount);
-		bttn = (Button)findViewById(R.id.button1);
+		bttn = (Button)findViewById(R.id.itemSearch_bttnSearch);
 
 		bttn.setOnClickListener(new OnClickListener() {			
 			@Override
