@@ -19,6 +19,8 @@ public class ItemDBAdapter {
 	public static final String DB_NAME = "itemsDB";
 	public static final int VERSION_NUMBER = 1;
 	
+	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
+	
 	private ItemDBHelper itemDBHelper;
 	private Context context;
 	private SQLiteDatabase db;
@@ -54,6 +56,7 @@ public class ItemDBAdapter {
 			ContentValues valeurs = new ContentValues();
 			valeurs.put(COLUMN_NAME, item.getName());
 			valeurs.put(COLUMN_DATE, item.getDate());
+			// TODO : sécuriser des injections SQL
 			return db.insert(TABLE_ITEMS, null, valeurs);
 		}
 		return -1;
@@ -65,6 +68,7 @@ public class ItemDBAdapter {
 			ContentValues valeurs = new ContentValues();
 			valeurs.put(COLUMN_NAME, item.getName());
 			valeurs.put(COLUMN_DATE, item.getDate());
+			// TODO : sécuriser des injections SQL
 			return db.update(TABLE_ITEMS, valeurs, COLUMN_ID + " = " + item.getId(), null);
 		}
 		return -1;
@@ -73,9 +77,8 @@ public class ItemDBAdapter {
 
 	// return Item si trouvé, null si non trouvé
 	public Item getItemById(int id) {
-		//Item i;
-		String[] Columns = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
-		Cursor c = db.query(TABLE_ITEMS, Columns, COLUMN_ID + " = " + id, null, null, null, null);
+		// TODO : sécuriser des injections SQL
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, COLUMN_ID + " = " + id, null, null, null, null);
 		if (c.getCount() != 0) {
 			c.moveToFirst();
 			return cursorToItem(c);
@@ -99,6 +102,7 @@ public class ItemDBAdapter {
 	public List<Item> getAll() {
 		List<Item> items = new ArrayList<Item>();
 		String[] columns = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
+		// TODO : sécuriser des injections SQL
 		Cursor c = db.query(TABLE_ITEMS, columns, null, null, null, null, null);
 		int i = 0;
 		c.moveToFirst();
@@ -113,8 +117,8 @@ public class ItemDBAdapter {
 
 	public List<Item> getOnlyWithDate() {
 		List<Item> items = new ArrayList<Item>();
-		String[] columns = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
-		Cursor c = db.query(TABLE_ITEMS, columns, "DATE IS NOT NULL", null, null, null, null);
+		// TODO : sécuriser des injections SQL
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "DATE IS NOT NULL", null, null, null, null);
 		int i = 0;
 		c.moveToFirst();
 		while ( i < c.getCount() ) {
@@ -125,12 +129,11 @@ public class ItemDBAdapter {
 		return items;
 	}
 
-	
+
 	public List<Item> getSearchOnName(String search) {
 		List<Item> items = new ArrayList<Item>();
-		String[] columns = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
-		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, columns, "NAME LIKE '%" + search + "%'", null, null, null, null);
+		// Secured query
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "NAME LIKE ?", new String[] {"%"+search+"%"}, null, null, null);
 		int i = 0;
 		c.moveToFirst();
 		while ( i < c.getCount() ) {
@@ -144,19 +147,21 @@ public class ItemDBAdapter {
 	
 	public void delete(Item item) {
 		int i = 0;
+		// TODO : sécuriser des injections SQL
 		i = db.delete(TABLE_ITEMS, COLUMN_ID + " = " + item.getId(), null);
 		Log.i("db.delete", Integer.toString(i));
 	}
 
+	
 	public int getCount() {
+		// TODO : sécuriser des injections SQL
 		Cursor c = db.query(TABLE_ITEMS, new String[] {COLUMN_ID}, null, null, null, null, null, null);
 		return c.getCount();				
 	}
 
+	
 	public Item getFirst() {
-		//Item i;
-		String[] ColonnesASelectionner = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
-		Cursor c = db.query(TABLE_ITEMS, ColonnesASelectionner, null, null, null, null, null, " 1 ");
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, null, " 1 ");
 		if (c.getCount() != 0) {
 			c.moveToFirst();
 			return cursorToItem(c);
