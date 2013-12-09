@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/itemSearch_bttnSearch"
         android:ems="10"
         android:hint="@string/searchfor" >
 
@@ -30,21 +30,28 @@
 
     </ListView>
 
-    <Button
-        android:id="@+id/itemSearch_bttnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/itemSearch_edtxSearch"
-        android:layout_alignRight="@+id/itemSearch_edtxSearch"
-        android:layout_below="@+id/itemSearch_edtxSearch"
-        android:text="@string/search" />
-
     <TextView
         android:id="@+id/itemSearch_txvwCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/itemSearch_lsvwList"
         android:layout_below="@+id/itemSearch_bttnSearch"
-        android:text="TextView" />
+        android:text="@string/items_found" />
+
+    <Switch
+        android:id="@+id/itemSearch_swchLive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/itemSearch_edtxSearch"
+        android:layout_below="@+id/itemSearch_edtxSearch"
+        android:text="Live" />
+
+    <Button
+        android:id="@+id/itemSearch_bttnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/itemSearch_edtxSearch"
+        android:text="Go" />
 
 </RelativeLayout>
