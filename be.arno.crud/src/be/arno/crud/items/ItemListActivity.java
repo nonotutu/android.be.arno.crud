@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class ItemListActivity extends Activity {
@@ -32,6 +33,7 @@ public class ItemListActivity extends Activity {
 	private ArrayAdapter<Item> itemArrayAdapter;
 	ArrayList<Item> items = null;
 	private Button bttnFilter;
+	private TextView txvwCount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,13 @@ public class ItemListActivity extends Activity {
 		Log.i("Item/List", "onCreate");
 		setContentView(R.layout.activity_item_list);
 		
+		txvwCount = (TextView)findViewById(R.id.itemList_txvwCount);
+		
+		// filtre par défaut
 		filter = 0;
 		initFilter();
 
 		bttnFilter = (Button)findViewById(R.id.list_bttnFilter);
-		Button bttnClose = (Button)findViewById(R.id.list_bttnClose);
-
-		lsvwList = (ListView)findViewById(R.id.list_lsvwList);
-
 		bttnFilter.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -54,6 +55,7 @@ public class ItemListActivity extends Activity {
 			}
 		});
 		
+		Button bttnClose = (Button)findViewById(R.id.list_bttnClose);
 		bttnClose.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -61,6 +63,7 @@ public class ItemListActivity extends Activity {
 			}
 		});
 
+		lsvwList = (ListView)findViewById(R.id.list_lsvwList);
 		lsvwList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -120,6 +123,7 @@ public class ItemListActivity extends Activity {
 	private void fillList(List<Item> items) {
 		itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, items);
 		lsvwList.setAdapter(itemArrayAdapter);
+		txvwCount.setText(getString(R.string.items_found) + ": " + items.size());
 	}
 	
 
@@ -138,8 +142,7 @@ public class ItemListActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     	filter = filterListArrayAdapter.getItem(which).getRsql();
-                    	// TODO : écrire "Filter" correctement
-                    	bttnFilter.setText(R.string.filter + ": "
+                    	bttnFilter.setText(getString(R.string.filter) + ": "
                     			           + filterListArrayAdapter.getItem(which).getName());
                 		fillList(getList());
                     }
