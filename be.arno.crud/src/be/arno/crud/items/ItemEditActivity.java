@@ -29,11 +29,11 @@ public class ItemEditActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_edit);
 
-		edtxName = (EditText)findViewById(R.id.edit_edtxName);
-		dtpkDate = (DatePicker)findViewById(R.id.edit_dtpkDate);
-		swchDate = (Switch)findViewById(R.id.edit_swchDate);
+		edtxName = (EditText)findViewById(R.id.itemForm_edtxName);
+		dtpkDate = (DatePicker)findViewById(R.id.itemForm_dtpkDate);
+		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
 		
-		Button bttnUpdate = (Button)findViewById(R.id.edit_bttnUpdate);
+		Button bttnUpdate = (Button)findViewById(R.id.itemEdit_bttnUpdate);
 		bttnUpdate.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -49,7 +49,7 @@ public class ItemEditActivity extends Activity {
 			}
 		});
 		
-		Button bttnCancel  = (Button)findViewById(R.id.edit_bttnCancel);
+		Button bttnCancel  = (Button)findViewById(R.id.itemEdit_bttnCancel);
 		bttnCancel.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

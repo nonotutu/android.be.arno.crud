@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name="be.arno.crud.items.ItemNewActivity"
-            android:label="@string/title_activity_item_create" >
+            android:label="@string/title_activity_item_new" >
         </activity>
         <activity
             android:name="be.arno.crud.items.ItemListActivity"

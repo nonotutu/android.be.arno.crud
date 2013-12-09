@@ -21,34 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <EditText
-                android:id="@+id/new_edtxName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/name" />
-
-            <Switch
-                android:id="@+id/new_swchDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/date" />
-
-            <DatePicker
-                android:id="@+id/new_dtpkDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:calendarViewShown="false" />
-
+            
+            <include layout="@layout/partial_item_form"/>
+            
             <Button
-                android:id="@+id/new_bttnUpdate"
+                android:id="@+id/itemNew_bttnUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/create" />
 
             <Button
-                android:id="@+id/new_bttnClose"
+                android:id="@+id/itemNew_bttnClose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/close" />

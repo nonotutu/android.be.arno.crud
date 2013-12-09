@@ -35,12 +35,12 @@ public class ItemNewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_new);
 
-		edtxName = (EditText)findViewById(R.id.new_edtxName);
-		dtpkDate = (DatePicker)findViewById(R.id.new_dtpkDate);
-		swchDate = (Switch)findViewById(R.id.new_swchDate);
+		edtxName = (EditText)findViewById(R.id.itemForm_edtxName);
+		dtpkDate = (DatePicker)findViewById(R.id.itemForm_dtpkDate);
+		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
 		
 		
-		Button bttnSave = (Button)findViewById(R.id.new_bttnUpdate);
+		Button bttnSave = (Button)findViewById(R.id.itemNew_bttnUpdate);
 		bttnSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -57,7 +57,7 @@ public class ItemNewActivity extends Activity {
 		});
 
 
-		Button bttnClose = (Button)findViewById(R.id.new_bttnClose);
+		Button bttnClose = (Button)findViewById(R.id.itemNew_bttnClose);
 		bttnClose.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

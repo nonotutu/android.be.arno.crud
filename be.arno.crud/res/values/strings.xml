@@ -6,7 +6,7 @@
     
     <!-- Activities Titles -->
     <string name="title_activity_item_index">Items</string>
-    <string name="title_activity_item_create">Create Item</string>
+    <string name="title_activity_item_new">New Item</string>
     <string name="title_activity_item_list">List Items</string>
     <string name="title_activity_item_show">Show Item</string>
     <string name="title_activity_item_edit">Edit Item</string>
