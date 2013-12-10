@@ -1,7 +1,9 @@
 package be.arno.crud.items;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,18 +98,20 @@ public class ItemSearchActivity extends Activity {
 		txvwCount.setText(getString(R.string.items_found) + ": " + items.size());
 	}
 
+	
 	// Récupère la liste selon le champ de recherche depuis la DB via l'Adapter
 	private List<Item> getList(String search) {
 
 		// Découpe la recherche à chaque espace
 		String[] searchs = search.split(" ");
 
+		// Ouvre la DB via d'Adapter
 		List<Item> items = new ArrayList<Item>();
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openReadable();
 
-		int i = 0;
 		// Boucle sur les 3 premiers mots
+		int i = 0;
 		while ( i < searchs.length && i <= 3 ) {
 			String s = searchs[i].toString();
 			// Si le mot fait 4 caractères ...
@@ -128,7 +132,29 @@ public class ItemSearchActivity extends Activity {
 			i = i + 1;
 		}
 
+		// Ferme la DB via l'Adapter
 		itemAdapter.close();
-		return items;		
+
+		return removeDuplicates(items);
 	}
+	
+	// Suppression des doublons, via une astucieuse double boucle qui, non seulement contente de m'avoir pris 2 heures de mon temps, m'a rappelé que les cours de principes de programmation étaient bien loins. Bordel.
+	private List<Item> removeDuplicates(List<Item> items) {
+		int j;
+		int i = 0;
+		while ( i < items.size() - 1 ) {
+			j = i + 1;
+			while ( j < items.size() ) {
+				if ( items.get(i).getId() == items.get(j).getId() ) {
+					items.remove(j);
+				}
+				else {
+					j = j + 1;
+				}
+			}
+		i = i + 1;
+		}		
+		return items;
+	}
+
 }
