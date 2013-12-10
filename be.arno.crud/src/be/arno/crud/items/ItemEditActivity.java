@@ -121,8 +121,8 @@ public class ItemEditActivity extends Activity {
 			if ( item.getDate() != null ) {
 					swchDate.setChecked(true);
 					dtpkDate.updateDate(item.getDatePart("yyyy"), item.getDatePart("MM")-1, item.getDatePart("dd"));
-					rtbrRating.setRating(item.getRating());
 			}
+			rtbrRating.setRating(item.getRating());
 		} else {
 			Toast.makeText(getApplicationContext(), "Item doesn't exist", Toast.LENGTH_LONG).show();
 			finish();
