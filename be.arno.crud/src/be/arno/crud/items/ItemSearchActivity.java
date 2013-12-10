@@ -11,6 +11,8 @@ import be.arno.crud.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,11 +21,14 @@ import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView.OnEditorActionListener;
 
 public class ItemSearchActivity extends Activity {
 
@@ -45,32 +50,39 @@ public class ItemSearchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_search);
+		
+		Log.i("ItemSearchActivity", "onCreate");
 
 		edtxSearch = (EditText)findViewById(R.id.itemSearch_edtxSearch);
 		lsvwList = (ListView)findViewById(R.id.itemSearch_lsvwList);
 		txvwCount = (TextView)findViewById(R.id.itemSearch_txvwCount);
 		final Switch swchLive = (Switch)findViewById(R.id.itemSearch_swchLive);
-
-		edtxSearch.setOnKeyListener(
-				new OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						// uniquement lorsque la touche est lachée
-						if ( event.getAction() ==  KeyEvent.ACTION_UP ) {
-							// uniquement si la recherche en live est activée et que l'EditText n'est pas vide
-							if ( swchLive.isChecked() == true && edtxSearch.getText().length() != 0)
-								fillList();
-						}
-						return false;
-					}
-				}
-			);
-
+		
+		edtxSearch.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				//Log.i("edtxSearch", "onTextChanged");
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				//Log.i("edtxSearch", "beforeTextChanged");
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				Log.i("edtxSearch", "afterTextChanged");
+				// uniquement si la recherche en live est activée et que l'EditText n'est pas vide
+				if ( swchLive.isChecked() == true && edtxSearch.getText().length() != 0)
+					fillList();
+			}
+		});
+		
 		Button bttnSearch = (Button)findViewById(R.id.itemSearch_bttnSearch);
 		bttnSearch.setOnClickListener(
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						Log.i("bttnSearch", "onClick");
 						fillList();
 					}
 				}
@@ -103,6 +115,7 @@ public class ItemSearchActivity extends Activity {
 
 	// Get et affiche la liste dans le ListView
 	private void fillList() {
+		Log.i("ItemSearchActivity", "fillList");
 		List<Item> items = getList(edtxSearch.getText().toString());
 		itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, items);
 		lsvwList.setAdapter(itemArrayAdapter);
@@ -113,9 +126,21 @@ public class ItemSearchActivity extends Activity {
 	// Récupère la liste selon le champ de recherche depuis la DB via l'Adapter
 	private List<Item> getList(String search) {
 
+		Log.i("ItemSearchActivity", "getList");
+		Log.i("ItemSearchActivity", "search = |" + search + "|");
+		
+		// Retire les leading & trailing spaces
+		search = search.trim();
+		Log.i("ItemSearchActivity", "search.trim = |" + search + "|");
+
+		// Retire les double spaces
+		while ( search.contains("  ") )	search = search.replace("  ", " ");
+		Log.i("ItemSearchActivity", "search.replace = |" + search + "|");
+		
 		// Découpe la recherche à chaque espace
 		String[] searchs = search.split(" ");
-
+		Log.i("getList", "searchs.length: " + searchs.length);
+		
 		// Ouvre la DB via d'Adapter
 		List<Item> items = new ArrayList<Item>();
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
@@ -151,6 +176,7 @@ public class ItemSearchActivity extends Activity {
 	
 	// Suppression des doublons, via une astucieuse double boucle qui, non seulement contente de m'avoir pris 2 heures de mon temps, m'a rappelé que les cours de principes de programmation étaient bien loins. Bordel.
 	private List<Item> removeDuplicates(List<Item> items) {
+		Log.i("ItemSearchActivity", "removeDuplicates");
 		int j;
 		int i = 0;
 		while ( i < items.size() - 1 ) {
