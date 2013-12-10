@@ -8,18 +8,21 @@ public class Item {
 	private int id;
 	private String name;
 	private String date;
+	private float rating;
 
 	public Item() {}
 	
-	public Item(String name, String date) {
+	public Item(String name, String date, float rating) {
 		this.name = name;
 		this.date = date;
+		this.rating = rating;
 	}
 	
-	public Item(int id, String name, String date) {
+	public Item(int id, String name, String date, float rating) {
 		this.id = id;
 		this.name = name;
-		this.date = date;		
+		this.date = date;
+		this.rating = rating;
 	}
 	
 	public String getName() {
@@ -57,10 +60,46 @@ public class Item {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public float getRating() {
+		return this.rating;
+	}
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public String getCharedRating() {
+		int i = (int) (this.rating * 2);
+		switch(i) {
+		case 0:
+			return "_____";
+		case 1:
+			return "=____";
+		case 2:
+			return "#____";
+		case 3:
+			return "#=___";
+		case 4:
+			return "##___";
+		case 5:
+			return "##=__";
+		case 6:
+			return "###__";
+		case 7:
+			return "###=_";
+		case 8:
+			return "####_";
+		case 9:
+			return "####=";
+		case 10:
+			return "#####";
+		default:
+			return "XXXXX";
+		}
+	}
 	
 	public String toString() {
-		String s = this.name;
-		if ( this.date != null ) s += " :: " + this.date;
+		String s = this.name + " :: " + this.getCharedRating();
 		return s;
 	}
 	

@@ -14,7 +14,13 @@ public class ItemDBHelper extends SQLiteOpenHelper {
 			ItemDBAdapter.COLUMN_DATE + " text " + " ); ";
 	
 	// TODO : alter table
-	private static final String UPGRADE_REQUEST = "DROP TABLE";
+	//private static final String UPGRADE_REQUEST = "DROP TABLE";
+	
+	private static final String UPGRADE_REQUEST_2 = " alter table " +
+			ItemDBAdapter.TABLE_ITEMS +
+			" ADD COLUMN " +
+			ItemDBAdapter.COLUMN_RATING + " text " + " ; ";
+	
 	
 	public ItemDBHelper(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -25,21 +31,8 @@ public class ItemDBHelper extends SQLiteOpenHelper {
 	}
 	
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL(UPGRADE_REQUEST);
-		onCreate(db);
+		if ( oldVersion == 1 && newVersion == 2 )
+			db.execSQL(UPGRADE_REQUEST_2);
 	}
 	
-	/* apparemment, ça ne va pas là
-	public Item getItemById(int id){
-		Item i;
-		String[] ColonnesASelectionner = new String[] {COLONNE_ID, COLONNE_NAME, COLONNE_DATE};
-		Cursor c = db.query(TABLE_ITEMS, ColonnesASelectionner, COLONNE_ID + " = " + id, null, null, null, null);
-		if (c.getCount() != 0) {
-			c.moveToFirst();
-			return cursorToItem(c);
-		}
-		else {
-			return null;
-		}
-	}*/
 }

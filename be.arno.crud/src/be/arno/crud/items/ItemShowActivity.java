@@ -2,10 +2,6 @@ package be.arno.crud.items;
 
 import be.arno.crud.R;
 import be.arno.crud.myApp;
-import be.arno.crud.R.id;
-import be.arno.crud.R.layout;
-import be.arno.crud.R.menu;
-import be.arno.crud.R.string;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,11 +9,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +24,7 @@ public class ItemShowActivity extends Activity {
 	private TextView txvwId;
 	private TextView txvwName;
 	private TextView txvwDate;
+	private RatingBar rtbrRating;
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
@@ -55,6 +52,7 @@ public class ItemShowActivity extends Activity {
 		txvwId = (TextView)findViewById(R.id.itemShow_txvwId);
 		txvwName = (TextView)findViewById(R.id.itemShow_txvwName);
 		txvwDate = (TextView)findViewById(R.id.itemShow_txvwDate);
+		rtbrRating = (RatingBar)findViewById(R.id.itemShow_rtbrRating);
 		
 		Button bttnDelete = (Button)findViewById(R.id.itemShow_bttnDelete);
 		bttnDelete.setOnClickListener(new OnClickListener() {
@@ -134,6 +132,7 @@ public class ItemShowActivity extends Activity {
 			txvwId.setText(""+item.getId());
 			txvwName.setText(item.getName());
 			txvwDate.setText(item.getDate());
+			rtbrRating.setRating(item.getRating());
 		} else {
 			Toast.makeText(getApplicationContext(), "Item doesn't exist", Toast.LENGTH_LONG).show();
 			finish();

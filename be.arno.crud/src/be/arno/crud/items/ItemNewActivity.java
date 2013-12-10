@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class ItemNewActivity extends Activity {
 	private EditText edtxName;
 	private DatePicker dtpkDate;
 	private Switch swchDate;
+	private RatingBar rtbrRating;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class ItemNewActivity extends Activity {
 		edtxName = (EditText)findViewById(R.id.itemForm_edtxName);
 		dtpkDate = (DatePicker)findViewById(R.id.itemForm_dtpkDate);
 		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
-		
+		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtngRating);
 		
 		Button bttnSave = (Button)findViewById(R.id.itemNew_bttnUpdate);
 		bttnSave.setOnClickListener(new OnClickListener() {
@@ -66,7 +68,7 @@ public class ItemNewActivity extends Activity {
 		if ( swchDate.isChecked() )		
 			date = Helper.dateInts2String(dtpkDate.getYear(), dtpkDate.getMonth(), dtpkDate.getDayOfMonth());
 		
-		Item item = new Item(edtxName.getText().toString(), date);
+		Item item = new Item(edtxName.getText().toString(), date, rtbrRating.getRating());
 		
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openWritable();
@@ -83,8 +85,4 @@ public class ItemNewActivity extends Activity {
 		getMenuInflater().inflate(R.menu.create, menu);
 		return true;
 	}
-
-	
-	
-	
 }

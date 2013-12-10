@@ -16,10 +16,11 @@ public class ItemDBAdapter {
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_DATE = "date";
+	public static final String COLUMN_RATING = "rating";
 	public static final String DB_NAME = "itemsDB";
-	public static final int VERSION_NUMBER = 1;
+	public static final int VERSION_NUMBER = 2;
 	
-	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
+	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE, COLUMN_RATING};
 	
 	private ItemDBHelper itemDBHelper;
 	private Context context;
@@ -56,7 +57,8 @@ public class ItemDBAdapter {
 			ContentValues valeurs = new ContentValues();
 			valeurs.put(COLUMN_NAME, item.getName());
 			valeurs.put(COLUMN_DATE, item.getDate());
-			// TODO : sécuriser des injections SQL
+			valeurs.put(COLUMN_RATING, item.getRating());
+			// TODO : sécuriser des injections SQL ?
 			return db.insert(TABLE_ITEMS, null, valeurs);
 		}
 		return -1;
@@ -68,7 +70,8 @@ public class ItemDBAdapter {
 			ContentValues valeurs = new ContentValues();
 			valeurs.put(COLUMN_NAME, item.getName());
 			valeurs.put(COLUMN_DATE, item.getDate());
-			// TODO : sécuriser des injections SQL
+			valeurs.put(COLUMN_RATING, item.getRating());
+			// TODO : sécuriser des injections SQL ?
 			return db.update(TABLE_ITEMS, valeurs, COLUMN_ID + " = " + item.getId(), null);
 		}
 		return -1;
@@ -94,6 +97,7 @@ public class ItemDBAdapter {
 		item.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
 		item.setName(c.getString(c.getColumnIndex(COLUMN_NAME)));
 		item.setDate(c.getString(c.getColumnIndex(COLUMN_DATE)));
+		item.setRating(c.getFloat(c.getColumnIndex(COLUMN_RATING)));		
 		return item;
 	}
 
@@ -101,9 +105,8 @@ public class ItemDBAdapter {
 	// retourne List<Items> vide si 
 	public List<Item> getAll() {
 		List<Item> items = new ArrayList<Item>();
-		String[] columns = new String[] {COLUMN_ID, COLUMN_NAME, COLUMN_DATE};
 		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, columns, null, null, null, null, null);
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, null);
 		int i = 0;
 		c.moveToFirst();
 		while ( i < c.getCount() ) {
