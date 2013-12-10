@@ -145,6 +145,21 @@ public class ItemDBAdapter {
 	}
 
 	
+	public List<Item> getSearchOnYear(String search) {
+		List<Item> items = new ArrayList<Item>();
+		// Secured query
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "strftime('%Y',DATE) = ?", new String[] {search}, null, null, null);
+		int i = 0;
+		c.moveToFirst();
+		while ( i < c.getCount() ) {
+			items.add(cursorToItem(c));
+			c.moveToNext();
+			i = i + 1;
+		}
+		return items;
+	}
+
+	
 	public void delete(Item item) {
 		int i = 0;
 		// TODO : sécuriser des injections SQL
