@@ -55,15 +55,7 @@ public class ItemNewActivity extends Activity {
 				}
 			}
 		});
-
-
-		Button bttnClose = (Button)findViewById(R.id.itemNew_bttnClose);
-		bttnClose.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+		
 	}
 
 	private long insertItemInDB() {

@@ -48,15 +48,6 @@ public class ItemEditActivity extends Activity {
 				}
 			}
 		});
-		
-		Button bttnCancel  = (Button)findViewById(R.id.itemEdit_bttnCancel);
-		bttnCancel.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				setResult(RESULT_CANCELED);
-				finish();
-			}
-		});
 
 		// récupérer l'ID dans le Bundle
 		int id = getIdFromParams();

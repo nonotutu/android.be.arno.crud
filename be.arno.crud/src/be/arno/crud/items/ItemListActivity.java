@@ -54,28 +54,30 @@ public class ItemListActivity extends Activity {
 		listFilter = filterListArrayAdapter.getItem(0);
 		
 		// Button du filtre, redirige vers la métode de sélection du filtre
-		bttnFilter = (Button)findViewById(R.id.list_bttnFilter);
-		bttnFilter.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View v) {
-				//filterChoice();
-				AlertDialog.Builder ad = dialogFilterSelect();
-				ad.show();
-			}
-		});
+		bttnFilter = (Button)findViewById(R.id.itemList_bttnFilter);
+		bttnFilter.setOnClickListener(
+				new OnClickListener() {			
+					@Override
+					public void onClick(View v) {
+						AlertDialog.Builder ad = dialogFilterSelect();
+						ad.show();
+					}
+				}
+			);
 		
-		// Button de fermeture, termine l'activité
-		Button bttnClose = (Button)findViewById(R.id.list_bttnClose);
-		bttnClose.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+		Button bttnNew = (Button)findViewById(R.id.itemList_bttnNew);
+		bttnNew.setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(getApplicationContext(), ItemNewActivity.class);
+						startActivity(i);
+					}
+				}
+			);
 
-		// ListView
-		lsvwList = (ListView)findViewById(R.id.list_lsvwList);
-		// ListView onClick
+		lsvwList = (ListView)findViewById(R.id.itemList_lsvwList);
+		// ListView onClick, ouvre le show Item
 		lsvwList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -87,7 +89,7 @@ public class ItemListActivity extends Activity {
 			}
 		});
 
-		// ListView onLongClick
+		// ListView onLongClick, popup l'ID
 		lsvwList.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long arg) {

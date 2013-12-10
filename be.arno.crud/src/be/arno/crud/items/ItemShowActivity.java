@@ -52,11 +52,11 @@ public class ItemShowActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_show);
 
-		txvwId = (TextView)findViewById(R.id.show_txvwId);
-		txvwName = (TextView)findViewById(R.id.show_txvwName);
-		txvwDate = (TextView)findViewById(R.id.show_txvwDate);
+		txvwId = (TextView)findViewById(R.id.itemShow_txvwId);
+		txvwName = (TextView)findViewById(R.id.itemShow_txvwName);
+		txvwDate = (TextView)findViewById(R.id.itemShow_txvwDate);
 		
-		Button bttnDelete = (Button)findViewById(R.id.show_bttnDelete);
+		Button bttnDelete = (Button)findViewById(R.id.itemShow_bttnDelete);
 		bttnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -65,21 +65,13 @@ public class ItemShowActivity extends Activity {
 			}
 		});
 		
-		Button bttnEdit = (Button)findViewById(R.id.show_bttnEdit);
+		Button bttnEdit = (Button)findViewById(R.id.itemShow_bttnEdit);
 		bttnEdit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), ItemEditActivity.class);
 				i.putExtra("ID", txvwId.getText().toString());
 				startActivityForResult(i, myApp.CODE_ACTIVITY_EDIT_ITEM);
-			}
-		});
-
-		Button bttnClose  = (Button)findViewById(R.id.show_bttnClose);
-		bttnClose.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
 			}
 		});
 

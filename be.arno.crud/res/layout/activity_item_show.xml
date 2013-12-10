@@ -11,7 +11,11 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemShow_bttnEdit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,66 +23,64 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/itemIndex_txvwCount"
+                android:id="@+id/itemShow_txvwIdT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/id"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/show_txvwId"
+                android:id="@+id/itemShow_txvwId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/itemShow_txvwNameT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/show_txvwName"
+                android:id="@+id/itemShow_txvwName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/itemShow_txvwDateT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/show_txvwDate"
+                android:id="@+id/itemShow_txvwDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+id/show_bttnEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit" />
-            
-            <Button
-                android:id="@+id/show_bttnDelete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete" />
-
-            <Button
-                android:id="@+id/show_bttnClose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/close" />
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/itemShow_bttnEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemShow_bttnDelete"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:text="@string/edit" />
+
+    <Button
+        android:id="@+id/itemShow_bttnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_alignParentBottom="true"
+        android:text="@string/delete" />
 
 </RelativeLayout>

@@ -75,17 +75,6 @@ public class ItemIndexActivity extends Activity {
 				}
 			}
 		);
-	
-		// VFEC
-		Button bttnClose = (Button)findViewById(R.id.itemIndex_bttnClose);
-		bttnClose.setOnClickListener(
-			new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					finish();
-				}
-			}
-		);
-		
+			
 	}
 }

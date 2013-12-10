@@ -25,6 +25,7 @@
         android:id="@+id/itemSearch_lsvwList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/itemSearch_bttnNew"
         android:layout_alignLeft="@+id/itemSearch_edtxSearch"
         android:layout_below="@+id/itemSearch_txvwCount" >
 
@@ -53,5 +54,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/itemSearch_edtxSearch"
         android:text="Go" />
+
+    <Button
+        android:id="@+id/itemSearch_bttnNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/itemSearch_lsvwList"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/itemSearch_lsvwList"
+        android:text="Button" />
 
 </RelativeLayout>

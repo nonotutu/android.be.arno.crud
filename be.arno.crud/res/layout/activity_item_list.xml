@@ -8,49 +8,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ItemListActivity" >
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/itemList_lsvwList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="144dp"
+        android:layout_above="@+id/itemList_txvwCount"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="0.33" >
 
-        <ListView
-            android:id="@+id/list_lsvwList"
-            android:layout_width="match_parent"
-            android:layout_height="144dp"
-            android:layout_weight="0.33" >
-        </ListView>
+    </ListView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+    <Button
+        android:id="@+id/itemList_bttnNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/NEW" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/itemList_bttnFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemList_bttnNew"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/filter" />
 
-                <TextView
-                    android:id="@+id/itemList_txvwCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="TextView" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/list_bttnFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/filter" />
-
-        <Button
-            android:id="@+id/list_bttnClose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/close" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/itemList_txvwCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemList_bttnFilter"
+        android:layout_alignParentRight="true"
+        android:text="@string/items_found" />
 
 </RelativeLayout>

@@ -75,7 +75,18 @@ public class ItemSearchActivity extends Activity {
 					}
 				}
 			);
-		
+
+		Button bttnNew = (Button)findViewById(R.id.itemSearch_bttnNew);
+		bttnNew.setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(getApplicationContext(), ItemNewActivity.class);
+						startActivity(i);
+					}
+				}
+			);
+
 		lsvwList.setOnItemClickListener(
 				new OnItemClickListener() {
 					@Override
