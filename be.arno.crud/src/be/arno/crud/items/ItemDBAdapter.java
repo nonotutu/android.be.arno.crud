@@ -106,7 +106,7 @@ public class ItemDBAdapter {
 	public List<Item> getAll() {
 		List<Item> items = new ArrayList<Item>();
 		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, null);
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, COLUMN_RATING + " DESC");
 		int i = 0;
 		c.moveToFirst();
 		while ( i < c.getCount() ) {

@@ -65,6 +65,8 @@ public class Item {
 		return this.rating;
 	}
 	public void setRating(float rating) {
+		if ( rating > 5 ) rating = 5;
+		if ( rating < 0 ) rating = 0;
 		this.rating = rating;
 	}
 

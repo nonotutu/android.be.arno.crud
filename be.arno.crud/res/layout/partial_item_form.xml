@@ -25,7 +25,7 @@
         android:calendarViewShown="false" />
 
     <RatingBar
-        android:id="@+id/itemForm_rtngRating"
+        android:id="@+id/itemForm_rtbrRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

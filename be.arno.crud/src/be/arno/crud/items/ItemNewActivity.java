@@ -40,7 +40,7 @@ public class ItemNewActivity extends Activity {
 		edtxName = (EditText)findViewById(R.id.itemForm_edtxName);
 		dtpkDate = (DatePicker)findViewById(R.id.itemForm_dtpkDate);
 		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
-		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtngRating);
+		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtbrRating);
 		
 		Button bttnSave = (Button)findViewById(R.id.itemNew_bttnUpdate);
 		bttnSave.setOnClickListener(new OnClickListener() {
