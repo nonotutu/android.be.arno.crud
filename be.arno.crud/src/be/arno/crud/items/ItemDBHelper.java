@@ -11,10 +11,8 @@ public class ItemDBHelper extends SQLiteOpenHelper {
 			ItemDBAdapter.TABLE_ITEMS + " ( " +
 			ItemDBAdapter.COLUMN_ID + " integer primary key autoincrement, " +
 			ItemDBAdapter.COLUMN_NAME + " text not null, " +
-			ItemDBAdapter.COLUMN_DATE + " text " + " ); ";
-	
-	// TODO : alter table
-	//private static final String UPGRADE_REQUEST = "DROP TABLE";
+			ItemDBAdapter.COLUMN_DATE + " text, " +
+			ItemDBAdapter.COLUMN_RATING + " text " + " ); ";
 	
 	private static final String UPGRADE_REQUEST_2 = " alter table " +
 			ItemDBAdapter.TABLE_ITEMS +
