@@ -3,6 +3,7 @@ package be.arno.crud.items;
 import be.arno.crud.ListFilter;
 import be.arno.crud.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -61,9 +62,7 @@ public class ItemListActivity extends Activity {
 					public void onClick(View v) {
 						AlertDialog.Builder ad = dialogFilterSelect();
 						ad.show();
-					}
-				}
-			);
+				}});
 		
 		Button bttnNew = (Button)findViewById(R.id.itemList_bttnNew);
 		bttnNew.setOnClickListener(
@@ -72,9 +71,7 @@ public class ItemListActivity extends Activity {
 					public void onClick(View v) {
 						Intent i = new Intent(getApplicationContext(), ItemNewActivity.class);
 						startActivity(i);
-					}
-				}
-			);
+				}});
 
 		lsvwList = (ListView)findViewById(R.id.itemList_lsvwList);
 		// ListView onClick, ouvre le show Item
@@ -86,8 +83,7 @@ public class ItemListActivity extends Activity {
 				Intent i = new Intent(getApplicationContext(), ItemShowActivity.class);
 				i.putExtra("ID", "" + item.getId());
 				startActivity(i);
-			}
-		});
+			}});
 
 		// ListView onLongClick, popup l'ID
 		lsvwList.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -97,11 +93,10 @@ public class ItemListActivity extends Activity {
 				Log.i("Item/List/ListView", "OnItemLongClick - item id: " + item.getId());
 				new AlertDialog.Builder(ItemListActivity.this).setMessage("ID: "+item.getId()).show();
 				return true;
-			}
-		});
+			}});
 		
 		// Peuple _items_ en fonction du _listFilter_
-		List<Item> items = getList();
+		ArrayList<Item> items = getList();
 		
 		// Affiche la liste d'Items et le nom du filtre
 		fillList(items);
@@ -118,9 +113,9 @@ public class ItemListActivity extends Activity {
 
 
 	// Récupère la liste selon le _listFilter_ depuis la DB via l'adapter
-	private List<Item> getList() {
+	private ArrayList<Item> getList() {
 
-		List<Item> items = null;
+		ArrayList<Item> items = null;
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openReadable();
 		
@@ -139,9 +134,15 @@ public class ItemListActivity extends Activity {
 
 	
 	// Affiche la liste filtrée dans le ListView
-	private void fillList(List<Item> items) {
-		itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, items);
-		lsvwList.setAdapter(itemArrayAdapter);
+	private void fillList(ArrayList<Item> items) {
+		
+		// Liste non personnalisée :
+		// itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, items);
+		// lsvwList.setAdapter(itemArrayAdapter);
+
+		// Liste personnalisée :
+		lsvwList.setAdapter(new ItemCustomListAdapter(this, items));
+		
 		txvwCount.setText(getString(R.string.items_found) + ": " + items.size());
 		bttnFilter.setText(getString(R.string.filter) + ": "
 		           + listFilter.getName());
@@ -159,8 +160,7 @@ public class ItemListActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                    }
-                });
+                }});
 		// TODO : ne pas confondre l'int de la list et l'int de l'adapter
         adb.setSingleChoiceItems(filterListArrayAdapter, listFilter.getRsql(),
                 new DialogInterface.OnClickListener() {
@@ -168,15 +168,13 @@ public class ItemListActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                     	listFilter = filterListArrayAdapter.getItem(which);
                 		dialog.dismiss();
-                    }
-                });
+                }});
         adb.setOnDismissListener(
         		new OnDismissListener() {
         			@Override
         			public void onDismiss(DialogInterface dialog) {
         				fillList(getList());				
-        			}
-        		});
+        		}});
 		return adb;
         }
 	

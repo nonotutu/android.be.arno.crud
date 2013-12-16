@@ -103,8 +103,8 @@ public class ItemDBAdapter {
 
 
 	// retourne List<Items> vide si 
-	public List<Item> getAll() {
-		List<Item> items = new ArrayList<Item>();
+	public ArrayList<Item> getAll() {
+		ArrayList<Item> items = new ArrayList<Item>();
 		// TODO : sécuriser des injections SQL
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, COLUMN_RATING + " DESC");
 		int i = 0;
@@ -118,8 +118,8 @@ public class ItemDBAdapter {
 	}
 
 
-	public List<Item> getOnlyWithDate() {
-		List<Item> items = new ArrayList<Item>();
+	public ArrayList<Item> getOnlyWithDate() {
+		ArrayList<Item> items = new ArrayList<Item>();
 		// TODO : sécuriser des injections SQL
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "DATE IS NOT NULL", null, null, null, null);
 		int i = 0;
@@ -133,8 +133,8 @@ public class ItemDBAdapter {
 	}
 
 
-	public List<Item> getSearchOnName(String search) {
-		List<Item> items = new ArrayList<Item>();
+	public ArrayList<Item> getSearchOnName(String search) {
+		ArrayList<Item> items = new ArrayList<Item>();
 		// Secured query
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "NAME LIKE ?", new String[] {"%"+search+"%"}, null, null, null);
 		int i = 0;
@@ -148,8 +148,8 @@ public class ItemDBAdapter {
 	}
 
 	
-	public List<Item> getSearchOnYear(String search) {
-		List<Item> items = new ArrayList<Item>();
+	public ArrayList<Item> getSearchOnYear(String search) {
+		ArrayList<Item> items = new ArrayList<Item>();
 		// Secured query
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "strftime('%Y',DATE) = ?", new String[] {search}, null, null, null);
 		int i = 0;
