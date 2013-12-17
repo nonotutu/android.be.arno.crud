@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class ItemShowActivity extends Activity {
 	
@@ -25,6 +26,7 @@ public class ItemShowActivity extends Activity {
 	private TextView txvwName;
 	private TextView txvwDate;
 	private RatingBar rtbrRating;
+	private TextView txvwBool;
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
@@ -53,7 +55,8 @@ public class ItemShowActivity extends Activity {
 		txvwName = (TextView)findViewById(R.id.itemShow_txvwName);
 		txvwDate = (TextView)findViewById(R.id.itemShow_txvwDate);
 		rtbrRating = (RatingBar)findViewById(R.id.itemShow_rtbrRating);
-		
+		txvwBool = (TextView)findViewById(R.id.itemShow_txvwBool);
+
 		Button bttnDelete = (Button)findViewById(R.id.itemShow_bttnDelete);
 		bttnDelete.setOnClickListener(new OnClickListener() {
 			@Override
@@ -133,6 +136,7 @@ public class ItemShowActivity extends Activity {
 			txvwName.setText(item.getName());
 			txvwDate.setText(item.getDate());
 			rtbrRating.setRating(item.getRating());
+			txvwBool.setText(""+item.getBool());
 		} else {
 			Toast.makeText(getApplicationContext(), "Item doesn't exist", Toast.LENGTH_LONG).show();
 			finish();

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.ToggleButton;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class ItemEditActivity extends Activity {
 	private DatePicker dtpkDate;
 	private Switch swchDate;
 	private RatingBar rtbrRating;
+	private ToggleButton tgbtBool;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class ItemEditActivity extends Activity {
 		dtpkDate = (DatePicker)findViewById(R.id.itemForm_dtpkDate);
 		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
 		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtbrRating);
+		tgbtBool = (ToggleButton)findViewById(R.id.itemForm_tgbtBool);
 		
 		Button bttnUpdate = (Button)findViewById(R.id.itemEdit_bttnUpdate);
 		bttnUpdate.setOnClickListener(new OnClickListener() {
@@ -103,7 +106,7 @@ public class ItemEditActivity extends Activity {
 		if ( swchDate.isChecked() )		
 			date = Helper.dateInts2String(dtpkDate.getYear(), dtpkDate.getMonth(), dtpkDate.getDayOfMonth());
 
-		Item i = new Item(item.getId(), edtxName.getText().toString(), date, rtbrRating.getRating());
+		Item i = new Item(item.getId(), edtxName.getText().toString(), date, rtbrRating.getRating(), tgbtBool.isChecked()?1:0);
 
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openWritable();
@@ -123,6 +126,7 @@ public class ItemEditActivity extends Activity {
 					dtpkDate.updateDate(item.getDatePart("yyyy"), item.getDatePart("MM")-1, item.getDatePart("dd"));
 			}
 			rtbrRating.setRating(item.getRating());
+			tgbtBool.setChecked(item.getBool()==1?true:false);
 		} else {
 			Toast.makeText(getApplicationContext(), "Item doesn't exist", Toast.LENGTH_LONG).show();
 			finish();

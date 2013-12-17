@@ -22,6 +22,7 @@
     <string name="id">ID</string>
     <string name="name">Name</string>
     <string name="date">Date</string>
+    <string name="bool">Boolean</string>
     <string name="item_created">Item created</string>
     <string name="item_not_created">Item not created</string>
     <string name="item_updated">Item updated</string>

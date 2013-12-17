@@ -9,20 +9,31 @@ public class Item {
 	private String name;
 	private String date;
 	private float rating;
+	private int bool;
 
 	public Item() {}
 	
-	public Item(String name, String date, float rating) {
+	public Item(String name, String date, float rating, int bool) {
 		this.name = name;
 		this.date = date;
 		this.rating = rating;
+		this.bool = bool;
 	}
 	
-	public Item(int id, String name, String date, float rating) {
+	public Item(int id, String name, String date, float rating, int bool) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.rating = rating;
+		this.bool = bool;
+	}
+	
+	public int getBool() {
+		return this.bool;
+	}
+	
+	public void setBool(int bool) {
+		this.bool = bool;
 	}
 	
 	public String getName() {
@@ -107,6 +118,8 @@ public class Item {
 	
 	public boolean isValid() {
 		if ( this.name.isEmpty() || this.name == null )
+			return false;
+		if ( this.bool < 0 || this.bool > 1 )
 			return false;
 	return true;
 	}	

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class ItemDBHelper extends SQLiteOpenHelper {
 
@@ -11,14 +12,18 @@ public class ItemDBHelper extends SQLiteOpenHelper {
 			ItemDBAdapter.TABLE_ITEMS + " ( " +
 			ItemDBAdapter.COLUMN_ID + " integer primary key autoincrement, " +
 			ItemDBAdapter.COLUMN_NAME + " text not null, " +
-			ItemDBAdapter.COLUMN_DATE + " text, " +
-			ItemDBAdapter.COLUMN_RATING + " text " + " ); ";
+			ItemDBAdapter.COLUMN_DATE + " text, " + " ; ";
+			//ItemDBAdapter.COLUMN_RATING + " text " + " ); ";
 	
 	private static final String UPGRADE_REQUEST_2 = " alter table " +
 			ItemDBAdapter.TABLE_ITEMS +
 			" ADD COLUMN " +
 			ItemDBAdapter.COLUMN_RATING + " text " + " ; ";
 	
+	private static final String UPGRADE_REQUEST_3 = " alter table " +
+			ItemDBAdapter.TABLE_ITEMS +
+			" ADD COLUMN " +
+			ItemDBAdapter.COLUMN_BOOL + " int " + " ; ";
 	
 	public ItemDBHelper(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -29,8 +34,11 @@ public class ItemDBHelper extends SQLiteOpenHelper {
 	}
 	
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if ( oldVersion == 1 && newVersion == 2 )
+		Log.i("DB", "onUpgrade");
+		if ( oldVersion < 2 )
 			db.execSQL(UPGRADE_REQUEST_2);
+		if ( oldVersion < 3 )
+			db.execSQL(UPGRADE_REQUEST_3);
 	}
 	
 }

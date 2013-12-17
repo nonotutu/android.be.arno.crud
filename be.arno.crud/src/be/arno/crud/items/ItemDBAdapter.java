@@ -12,15 +12,16 @@ import android.util.Log;
 
 public class ItemDBAdapter {
 
-	public static final String TABLE_ITEMS = "items";
-	public static final String COLUMN_ID = "_id";
-	public static final String COLUMN_NAME = "name";
-	public static final String COLUMN_DATE = "date";
+	public static final String DB_NAME       = "itemsDB";
+	public static final String TABLE_ITEMS   = "items";
+	public static final String COLUMN_ID     = "_id";
+	public static final String COLUMN_NAME   = "name";
+	public static final String COLUMN_DATE   = "date";
 	public static final String COLUMN_RATING = "rating";
-	public static final String DB_NAME = "itemsDB";
-	public static final int VERSION_NUMBER = 2;
+	public static final String COLUMN_BOOL   = "bool";
+	public static final int VERSION_NUMBER = 3;
 	
-	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE, COLUMN_RATING};
+	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE, COLUMN_RATING, COLUMN_BOOL};
 	
 	private ItemDBHelper itemDBHelper;
 	private Context context;
@@ -58,6 +59,7 @@ public class ItemDBAdapter {
 			valeurs.put(COLUMN_NAME, item.getName());
 			valeurs.put(COLUMN_DATE, item.getDate());
 			valeurs.put(COLUMN_RATING, item.getRating());
+			valeurs.put(COLUMN_BOOL, item.getBool());
 			// TODO : sécuriser des injections SQL ?
 			return db.insert(TABLE_ITEMS, null, valeurs);
 		}
@@ -71,6 +73,7 @@ public class ItemDBAdapter {
 			valeurs.put(COLUMN_NAME, item.getName());
 			valeurs.put(COLUMN_DATE, item.getDate());
 			valeurs.put(COLUMN_RATING, item.getRating());
+			valeurs.put(COLUMN_BOOL, item.getBool());
 			// TODO : sécuriser des injections SQL ?
 			return db.update(TABLE_ITEMS, valeurs, COLUMN_ID + " = " + item.getId(), null);
 		}
@@ -98,6 +101,7 @@ public class ItemDBAdapter {
 		item.setName(c.getString(c.getColumnIndex(COLUMN_NAME)));
 		item.setDate(c.getString(c.getColumnIndex(COLUMN_DATE)));
 		item.setRating(c.getFloat(c.getColumnIndex(COLUMN_RATING)));		
+		item.setBool(c.getInt(c.getColumnIndex(COLUMN_BOOL)));
 		return item;
 	}
 
@@ -152,6 +156,21 @@ public class ItemDBAdapter {
 		ArrayList<Item> items = new ArrayList<Item>();
 		// Secured query
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "strftime('%Y',DATE) = ?", new String[] {search}, null, null, null);
+		int i = 0;
+		c.moveToFirst();
+		while ( i < c.getCount() ) {
+			items.add(cursorToItem(c));
+			c.moveToNext();
+			i = i + 1;
+		}
+		return items;
+	}
+
+	
+	public ArrayList<Item> getOnlyBool(int bool) {
+		ArrayList<Item> items = new ArrayList<Item>();
+		// Secured query
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "bool = ?", new String[] {""+bool}, null, null, null);
 		int i = 0;
 		c.moveToFirst();
 		while ( i < c.getCount() ) {

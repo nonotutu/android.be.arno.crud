@@ -77,6 +77,19 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true" />
 
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bool" />
+
+            <TextView
+                android:id="@+id/itemShow_txvwBool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
         </LinearLayout>
 
     </ScrollView>

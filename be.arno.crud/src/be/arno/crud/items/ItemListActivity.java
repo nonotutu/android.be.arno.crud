@@ -4,7 +4,6 @@ import be.arno.crud.ListFilter;
 import be.arno.crud.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -33,7 +32,7 @@ public class ItemListActivity extends Activity {
 	private ArrayAdapter<ListFilter> filterListArrayAdapter;
 
 	// Adapter de la liste des _Item_
-	private ArrayAdapter<Item> itemArrayAdapter;
+	// private ArrayAdapter<Item> itemArrayAdapter;
 	
 	// Autres views
 	private ListView lsvwList;  // Liste
@@ -123,6 +122,12 @@ public class ItemListActivity extends Activity {
 			case 1:
 				items = itemAdapter.getOnlyWithDate();
 				break;
+			case 2:
+				items = itemAdapter.getOnlyBool(1);
+				break;
+			case 3:
+				items = itemAdapter.getOnlyBool(0);
+				break;
 			default:
 				items = itemAdapter.getAll();
 				break;
@@ -142,7 +147,7 @@ public class ItemListActivity extends Activity {
 
 		// Liste personnalisée :
 		lsvwList.setAdapter(new ItemCustomListAdapter(this, items));
-		
+
 		txvwCount.setText(getString(R.string.items_found) + ": " + items.size());
 		bttnFilter.setText(getString(R.string.filter) + ": "
 		           + listFilter.getName());
@@ -184,7 +189,10 @@ public class ItemListActivity extends Activity {
 		filterListArrayAdapter = new ArrayAdapter<ListFilter>(
                 ItemListActivity.this,
                 android.R.layout.select_dialog_singlechoice);
+		
         filterListArrayAdapter.add(new ListFilter("Tous", 0));
         filterListArrayAdapter.add(new ListFilter("Avec date", 1));
+        filterListArrayAdapter.add(new ListFilter("Booléen Oui", 2));
+        filterListArrayAdapter.add(new ListFilter("Booléen Non", 3));
 	}
 }

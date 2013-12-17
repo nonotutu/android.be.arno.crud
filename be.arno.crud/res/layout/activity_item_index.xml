@@ -36,7 +36,7 @@
         android:text="@string/list" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/itemShow_txvwBool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -48,7 +48,7 @@
         android:id="@+id/itemIndex_txvwCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/itemShow_txvwBool"
         android:layout_centerHorizontal="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
