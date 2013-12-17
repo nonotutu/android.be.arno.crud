@@ -22,4 +22,13 @@
         android:layout_alignParentBottom="true"
         />
     
+    <TextView
+        android:id="@+id/listItemRow_txvwBool"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
+    
+    
 </RelativeLayout>

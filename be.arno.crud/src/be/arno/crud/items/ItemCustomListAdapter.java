@@ -45,6 +45,7 @@ public class ItemCustomListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.listItemRow_txvwName);
             holder.date = (TextView) convertView.findViewById(R.id.listItemRow_txvwDate);
+            holder.bool = (TextView) convertView.findViewById(R.id.listItemRow_txvwBool);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -52,6 +53,7 @@ public class ItemCustomListAdapter extends BaseAdapter {
  
         holder.name.setText(listData.get(position).getName());
         holder.date.setText(listData.get(position).getDate());
+        holder.bool.setText(listData.get(position).getBool()+"");
  
         return convertView;
     }
@@ -59,6 +61,7 @@ public class ItemCustomListAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView name;
         TextView date;
+        TextView bool;
     }
  
 }
