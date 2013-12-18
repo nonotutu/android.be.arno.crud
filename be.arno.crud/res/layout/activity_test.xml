@@ -9,22 +9,47 @@
     tools:context=".TestActivity" >
 
     <Button
-        android:id="@+id/itemSearch_bttnSearch"
-        android:layout_width="wrap_content"
+        android:id="@+id/test_bttnThread1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/itemIndex_txvwCount"
-        android:layout_width="wrap_content"
+        android:text="Thread 1" />
+    
+	<Button
+        android:id="@+id/test_bttnThread2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/itemSearch_bttnSearch"
-        android:layout_alignRight="@+id/itemSearch_bttnSearch"
-        android:layout_below="@+id/itemSearch_bttnSearch"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/test_bttnThread1"
+        android:text="Thread 2 : AsyncTask" />
+
+	<Button
+        android:id="@+id/test_bttnThread3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/test_bttnThread2"
+        android:text="Thread 3" />
+	
+    <ProgressBar
+        android:id="@+id/test_pgbr"
+	    style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:height="10dp"
+        android:layout_below="@+id/test_bttnThread3" />
+
+	<TextView
+	    android:id="@+id/test_txvw"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+        android:layout_below="@+id/test_pgbr"
+	    android:text="" />
+
 
 </RelativeLayout>
