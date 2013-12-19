@@ -94,7 +94,14 @@ public class ItemDBAdapter {
 		}
 	}
 
+	
+	public Cursor getCursorItemById(int id) {
+		// TODO : sécuriser des injections SQL
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, COLUMN_ID + " = " + id, null, null, null, null);
+		return c;
+	}
 
+	
 	private Item cursorToItem(Cursor c) {
 		Item item = new Item();
 		item.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
@@ -121,7 +128,14 @@ public class ItemDBAdapter {
 		return items;
 	}
 
+	
+	public Cursor getCursorAll() {
+		// TODO : sécuriser des injections SQL
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, COLUMN_RATING + " DESC");
+		return c;
+	}
 
+	
 	public ArrayList<Item> getOnlyWithDate() {
 		ArrayList<Item> items = new ArrayList<Item>();
 		// TODO : sécuriser des injections SQL
