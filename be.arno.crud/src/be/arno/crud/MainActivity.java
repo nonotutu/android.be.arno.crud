@@ -18,21 +18,12 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		Button bttnItems = (Button)findViewById(R.id.main_bttnItems);
-		Button bttnTest = (Button)findViewById(R.id.main_bttnTest);
 		Button bttnClose = (Button)findViewById(R.id.main_bttnClose);
 				
 		bttnItems.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), ItemIndexActivity.class);
-				startActivity(i);
-			}
-		});
-
-		bttnTest.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), TestActivity.class);
 				startActivity(i);
 			}
 		});

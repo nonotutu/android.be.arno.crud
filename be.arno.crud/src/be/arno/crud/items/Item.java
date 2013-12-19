@@ -1,8 +1,5 @@
 package be.arno.crud.items;
 
-import android.content.Context;
-//import be.arno.crud.items.ItemDBAdapter;
-
 public class Item {
 
 	private int id;

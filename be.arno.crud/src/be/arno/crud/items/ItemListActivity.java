@@ -166,7 +166,7 @@ public class ItemListActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                 }});
-		// TODO : ne pas confondre l'int de la list et l'int de l'adapter
+		// Ne pas confondre l'int de la list et l'int de l'adapter
         adb.setSingleChoiceItems(filterListArrayAdapter, listFilter.getRsql(),
                 new DialogInterface.OnClickListener() {
                     @Override

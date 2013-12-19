@@ -9,21 +9,12 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/main_bttnTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/main_bttnItems"
-        android:text="@string/test" />
-
-    <Button
         android:id="@+id/main_bttnClose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/main_bttnTest"
+        android:layout_below="@+id/main_bttnItems"
         android:text="@string/close" />
 
     <Button
