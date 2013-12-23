@@ -104,9 +104,20 @@ public class ItemSearchActivity extends Activity {
 					@Override
 					public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
 						Item item = (Item)lsvwList.getItemAtPosition(position);
-						Intent i = new Intent(getApplicationContext(), ItemShowActivity.class);
-						i.putExtra("ID", "" + item.getId());
-						startActivity(i);
+						Intent intent = new Intent(getApplicationContext(), ItemShowActivity.class);
+						intent.putExtra("ID", "" + item.getId());
+						
+						// TODO : mettre ailleurs
+						ArrayList<Integer> ids = new ArrayList<Integer>();
+						int c = itemArrayAdapter.getCount();
+						
+						for ( int i = 0 ; i < c ; i+=1 ) {
+							ids.add(itemArrayAdapter.getItem(i).getId());
+						}
+						
+						intent.putExtra("LAST", position);
+						intent.putExtra("IDS", ids);
+						startActivity(intent);
 					}
 				}
 			);

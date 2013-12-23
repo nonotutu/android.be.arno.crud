@@ -1,5 +1,7 @@
 package be.arno.crud.items;
 
+import java.util.ArrayList;
+
 import be.arno.crud.R;
 import be.arno.crud.myApp;
 
@@ -9,24 +11,34 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class ItemShowActivity extends Activity {
-	
+
 	private Item item;
-	
+
 	private TextView txvwId;
 	private TextView txvwName;
 	private TextView txvwDate;
 	private RatingBar rtbrRating;
 	private TextView txvwBool;
+	private SeekBar skbrPosition;
+	private TextView txvwPosition;
+	private ImageView imvwImage;
+	private ArrayList<Integer> ids;
+	private int last;
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
@@ -45,7 +57,8 @@ public class ItemShowActivity extends Activity {
 			break;
 		}
 	}
-	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +69,10 @@ public class ItemShowActivity extends Activity {
 		txvwDate = (TextView)findViewById(R.id.itemShow_txvwDate);
 		rtbrRating = (RatingBar)findViewById(R.id.itemShow_rtbrRating);
 		txvwBool = (TextView)findViewById(R.id.itemShow_txvwBool);
-
+		skbrPosition = (SeekBar)findViewById(R.id.itemShow_skbrPosition);
+		txvwPosition = (TextView)findViewById(R.id.itemShow_txvwPosition);
+		imvwImage = (ImageView)findViewById(R.id.itemShow_imvwImage);
+		
 		Button bttnDelete = (Button)findViewById(R.id.itemShow_bttnDelete);
 		bttnDelete.setOnClickListener(new OnClickListener() {
 			@Override
@@ -65,23 +81,68 @@ public class ItemShowActivity extends Activity {
 				d.show();
 			}
 		});
-		
+
 		Button bttnEdit = (Button)findViewById(R.id.itemShow_bttnEdit);
 		bttnEdit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Log.i("item.getId()", "" + item.getId());
 				Intent i = new Intent(getApplicationContext(), ItemEditActivity.class);
-				i.putExtra("ID", txvwId.getText().toString());
+				i.putExtra("ID", "" + item.getId() );
 				startActivityForResult(i, myApp.CODE_ACTIVITY_EDIT_ITEM);
 			}
 		});
 
-		// récupérer l'ID dans le Bundle
+		Button bttnPrev = (Button)findViewById(R.id.itemShow_bttnPrev);
+		bttnPrev.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if ( last > 0 ) {
+					last = last - 1;
+					getItemFromDB(ids.get(last));
+					fillFields();
+				}
+			}
+		});
+
+		Button bttnNext = (Button)findViewById(R.id.itemShow_bttnNext);
+		bttnNext.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if ( last < ids.size()-1 ) {
+					last = last + 1;
+					getItemFromDB(ids.get(last));
+					fillFields();
+				}
+			}
+		});
+
+		skbrPosition.setOnSeekBarChangeListener(
+			new OnSeekBarChangeListener() {
+				@Override
+				public void onStopTrackingTouch(SeekBar seekBar) {
+					last = seekBar.getProgress();
+					getItemFromDB(ids.get(last));
+					fillFields();
+				}
+				@Override
+				public void onStartTrackingTouch(SeekBar seekBar) {
+				}
+				@Override
+				public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+					txvwPosition.setText( " " + (progress+1) + " / " + ids.size() + " ");
+				}
+			});
+
+
+		// récupérer l'ID / IDS / LAST dans le Bundle
 		int id = getIdFromParams();
-		
+
+		skbrPosition.setMax(ids.size()-1);
+
 		// récupérer l'item de la DB
 		getItemFromDB(id);
-		
+
 		// afficher les informations
 		fillFields();
 	}
@@ -102,10 +163,12 @@ public class ItemShowActivity extends Activity {
 
 		String strId = null;
 		int intId;
-		
+
 		Bundle extra = this.getIntent().getExtras();
 		if ( extra != null ) {
 			strId = extra.getString("ID");
+			ids = extra.getIntegerArrayList("IDS");
+			last = extra.getInt("LAST");
 		}
 		try {
 			intId = Integer.parseInt(strId);
@@ -137,6 +200,10 @@ public class ItemShowActivity extends Activity {
 			txvwDate.setText(item.getDate());
 			rtbrRating.setRating(item.getRating());
 			txvwBool.setText(""+item.getBool());
+			txvwBool.setText(item.getImage()==null?"image null":"image non null");
+			imvwImage.setImageBitmap(item.getImage());
+			skbrPosition.setProgress(last);
+			txvwPosition.setText( " " + (last+1) + " / " + ids.size() + " ");
 		} else {
 			Toast.makeText(getApplicationContext(), "Item doesn't exist", Toast.LENGTH_LONG).show();
 			finish();
@@ -145,7 +212,7 @@ public class ItemShowActivity extends Activity {
 
 
 	private Dialog askConfirmation() {
-		
+
 		Dialog d = new AlertDialog.Builder(this)
 		.setMessage(R.string.sureDelete)
 		.setNegativeButton(android.R.string.no, null)
@@ -159,13 +226,5 @@ public class ItemShowActivity extends Activity {
 		.create();
 		return d;
 	    }
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.show, menu);
-		return true;
-	}
 
 }

@@ -12,14 +12,14 @@
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/itemShow_bttnEdit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:layout_above = "@+id/itemShow_skbrPosition" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
@@ -94,20 +94,66 @@
 
     </ScrollView>
 
+    <SeekBar
+        android:id="@+id/itemShow_skbrPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemShow_lnltPrevNext"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+    
     <Button
         android:id="@+id/itemShow_bttnEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/itemShow_bttnDelete"
-        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_alignParentLeft="true"
         android:text="@string/edit" />
 
     <Button
         android:id="@+id/itemShow_bttnDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scrollView1"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:text="@string/delete" />
+
+	<LinearLayout
+        android:id="@+id/itemShow_lnltPrevNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+     	android:layout_above="@+id/itemShow_bttnEdit">
+           
+	    <Button
+	        android:id="@+id/itemShow_bttnPrev"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight=".5"
+	        android:text="@string/previous" />
+
+	    <TextView
+	        android:id="@+id/itemShow_txvwPosition"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <Button
+	        android:id="@+id/itemShow_bttnNext"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight=".5"
+	        android:text="@string/next" />
+   
+    </LinearLayout>
+
+	<ImageView
+	    android:id="@+id/itemShow_imvwImage"
+	    android:layout_width="100dp"
+	    android:layout_height="100dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:scaleType="fitXY"
+	    android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

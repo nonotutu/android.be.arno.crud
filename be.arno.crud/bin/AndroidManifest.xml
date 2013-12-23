@@ -13,7 +13,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <provider 
+            <!-- name = adresse physique -->
+            <!-- authorities = adresse française -->
+        <provider
             android:name=".items.ItemContentProvider"
         	android:authorities="be.arno.crud.ItemProvider"
         	android:exported="true"
@@ -23,7 +25,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

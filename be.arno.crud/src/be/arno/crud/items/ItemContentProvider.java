@@ -17,21 +17,21 @@ import android.util.Log;
 	 ----------
 	
 	2.  Content Resolver (query, insert, update, delete)
-		idÈal Async
+		id√©al Async
 	
 	4.	Traitement Cursor pour en faire un objet
-		idÈal Async
+		id√©al Async
 	
    --------------
-	\  AppelÈ  /
+	\  Appel√©  /
 	 ----------
 
-	1. 	DÈfinir le Content Provider : classe qui extends ContentProvider
+	1. 	D√©finir le Content Provider : classe qui extends ContentProvider
 		L'enregistrer dans le Manifest
 		URI matcher
 	
 	3.	CP <--> DBAdap <--> DB
-		idÈal Async
+		id√©al Async
 
 */
 
@@ -49,6 +49,9 @@ public class ItemContentProvider extends ContentProvider {
 	public boolean onCreate() {
 		itemDBAdapter = new ItemDBAdapter(this.getContext());
 		itemDBAdapter.openReadable();
+		if ( itemDBAdapter != null ) {
+			return true;
+		}
 		return false;
 	}
 	
@@ -80,13 +83,16 @@ public class ItemContentProvider extends ContentProvider {
 	}
 
 	@Override
-	public Cursor query(Uri uri, String[] projection, String selection,
-			String[] selectionArgs, String sortOrder) {
+	// TODO : renommer les param√®tres
+	public Cursor query(Uri uri, String[] projection, String selection,	String[] selectionArgs, String sortOrder) {
+
+		Cursor c;
 
 		switch (uriMatcher.match(uri)) {
+		
 			case TOUS_ITEMS:
 
-			    Cursor c = itemDBAdapter.getCursorAll();
+			    c = itemDBAdapter.getCursorAll(); //projection, selection, selectionArgs, null, null, sortOrder);
 			    c.setNotificationUri(getContext().getContentResolver(), uri);
 			    return c;
 				  
@@ -99,9 +105,9 @@ public class ItemContentProvider extends ContentProvider {
 					return null;
 				}
 
-				Cursor d = itemDBAdapter.getCursorItemById(id);
-				d.setNotificationUri(getContext().getContentResolver(), uri);
-			    return d;
+				c = itemDBAdapter.getCursorItemById(id);
+				c.setNotificationUri(getContext().getContentResolver(), uri);
+			    return c;
 			    
 			default:
 				return null;

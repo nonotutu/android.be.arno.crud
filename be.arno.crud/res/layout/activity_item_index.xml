@@ -9,15 +9,6 @@
     tools:context=".ItemIndexActivity" >
 
     <Button
-        android:id="@+id/itemIndex_bttnNew"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/NEW" />
-
-    <Button
         android:id="@+id/itemIndex_bttnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,5 +44,31 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="64sp" />
+
+    <Button
+        android:id="@+id/itemIndex_bttnNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemIndex_bttnFill"
+        android:layout_alignLeft="@+id/itemIndex_bttnSearch"
+        android:text="@string/NEW" />
+
+    <Button
+        android:id="@+id/itemIndex_bttnDeleteAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/deleteAll" />
+
+    <Button
+        android:id="@+id/itemIndex_bttnFill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemIndex_bttnDeleteAll"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/fill" />
 
 </RelativeLayout>

@@ -72,7 +72,14 @@ public class ItemNewActivity extends Activity {
 		if ( swchDate.isChecked() )		
 			date = Helper.dateInts2String(dtpkDate.getYear(), dtpkDate.getMonth(), dtpkDate.getDayOfMonth());
 		
-		Item item = new Item(edtxName.getText().toString(), date, rtbrRating.getRating(), tgbtBool.isChecked()?1:0);
+		Item item = new Item();
+		Item i = new Item();
+		i.setId(item.getId());
+		i.setName(edtxName.getText().toString());
+		i.setDate(date);
+		i.setRating(rtbrRating.getRating());
+		i.setBool(tgbtBool.isChecked()?1:0);		
+		// TODO : i.setImage
 		
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openWritable();

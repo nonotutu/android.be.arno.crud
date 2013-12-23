@@ -47,5 +47,9 @@
     <string name="cancel">Cancel</string>
     <string name="sureDelete">Delete this item ?</string>
     <string name="test">Test</string>
+    <string name="fill">Fill</string>
+    <string name="deleteAll">Delete all</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
     
 </resources>

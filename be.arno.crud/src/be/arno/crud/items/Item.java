@@ -1,5 +1,12 @@
 package be.arno.crud.items;
 
+import java.io.ByteArrayOutputStream;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.widget.ImageView;
+
 public class Item {
 
 	private int id;
@@ -7,14 +14,17 @@ public class Item {
 	private String date;
 	private float rating;
 	private int bool;
+	private Bitmap image;
 
 	public Item() {}
 	
+	/**
 	public Item(String name, String date, float rating, int bool) {
 		this.name = name;
 		this.date = date;
 		this.rating = rating;
 		this.bool = bool;
+		this.image = image;
 	}
 	
 	public Item(int id, String name, String date, float rating, int bool) {
@@ -23,7 +33,34 @@ public class Item {
 		this.date = date;
 		this.rating = rating;
 		this.bool = bool;
+		this.image = image;
+	}*/
+	
+	public void setImage(Bitmap image) {
+		this.image = image;
 	}
+	
+	public Bitmap getImage() {
+		return this.image;
+	}
+	
+	public byte[] getByteArrayImage() {
+		byte[] byteArray = null;
+		if ( this.image != null ) {
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			this.image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byteArray = stream.toByteArray();
+		}
+		return byteArray;
+	}
+	
+	public void setByteArrayImage(byte[] byteArray) {
+		if ( byteArray != null ) {
+			Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+			this.image = bitmap;
+		}
+	}
+	
 	
 	public int getBool() {
 		return this.bool;

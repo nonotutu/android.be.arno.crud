@@ -75,6 +75,7 @@ public class ItemEditActivity extends Activity {
 		Bundle extra = this.getIntent().getExtras();
 		if ( extra != null ) {
 			strId = extra.getString("ID");
+			Log.i("edit", strId);
 		}
 		try {
 			intId = Integer.parseInt(strId);
@@ -106,8 +107,14 @@ public class ItemEditActivity extends Activity {
 		if ( swchDate.isChecked() )		
 			date = Helper.dateInts2String(dtpkDate.getYear(), dtpkDate.getMonth(), dtpkDate.getDayOfMonth());
 
-		Item i = new Item(item.getId(), edtxName.getText().toString(), date, rtbrRating.getRating(), tgbtBool.isChecked()?1:0);
-
+		Item i = new Item();
+		i.setId(item.getId());
+		i.setName(edtxName.getText().toString());
+		i.setDate(date);
+		i.setRating(rtbrRating.getRating());
+		i.setBool(tgbtBool.isChecked()?1:0);
+		// TODO : i.setImage
+		
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openWritable();
 		l = itemAdapter.update(i);

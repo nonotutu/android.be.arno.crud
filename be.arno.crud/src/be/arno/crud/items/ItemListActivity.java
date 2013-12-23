@@ -79,9 +79,21 @@ public class ItemListActivity extends Activity {
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
 				Item item = (Item)lsvwList.getItemAtPosition(position);
 				Log.i("Item/List/ListView", "OnItemClick - item id: " + item.getId());
-				Intent i = new Intent(getApplicationContext(), ItemShowActivity.class);
-				i.putExtra("ID", "" + item.getId());
-				startActivity(i);
+				Intent intent = new Intent(getApplicationContext(), ItemShowActivity.class);
+				intent.putExtra("ID", "" + item.getId());
+
+				// TODO : mettre ailleurs
+				ArrayList<Integer> ids = new ArrayList<Integer>();
+				int c = lsvwList.getCount();
+				
+				for ( int i = 0 ; i < c ; i+=1 ) {
+					ids.add(  ((Item)lsvwList.getItemAtPosition(i)).getId()  );
+				}
+				
+				intent.putExtra("LAST", position);
+				intent.putExtra("IDS", ids);
+				
+				startActivity(intent);
 			}});
 
 		// ListView onLongClick, popup l'ID
@@ -98,15 +110,16 @@ public class ItemListActivity extends Activity {
 		ArrayList<Item> items = getList();
 		
 		// Affiche la liste d'Items et le nom du filtre
-		fillList(items);
+		// supprimée car appelée au onStart;
+		// fillList(items);
 	}
 
 	
-	// Met à jour la liste au _restart_ de l'_activity_
+	// Met à jour la liste au _start_ de l'_activity_
 	@Override
-	protected void onRestart() {
-		super.onRestart();
-		Log.i("Item/List", "onRestart");
+	protected void onStart() {
+		super.onStart();
+		Log.i("Item/List", "onStart");
 		fillList(getList());
 	}
 

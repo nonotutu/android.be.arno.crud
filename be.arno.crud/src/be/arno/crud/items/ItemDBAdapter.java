@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 
@@ -19,9 +20,10 @@ public class ItemDBAdapter {
 	public static final String COLUMN_DATE   = "date";
 	public static final String COLUMN_RATING = "rating";
 	public static final String COLUMN_BOOL   = "bool";
-	public static final int VERSION_NUMBER = 3;
+	public static final String COLUMN_IMAGE  = "image";
+	public static final int VERSION_NUMBER = 4;
 	
-	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE, COLUMN_RATING, COLUMN_BOOL};
+	public static final String[] ALL_COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_DATE, COLUMN_RATING, COLUMN_BOOL, COLUMN_IMAGE};
 	
 	private ItemDBHelper itemDBHelper;
 	private Context context;
@@ -60,9 +62,23 @@ public class ItemDBAdapter {
 			valeurs.put(COLUMN_DATE, item.getDate());
 			valeurs.put(COLUMN_RATING, item.getRating());
 			valeurs.put(COLUMN_BOOL, item.getBool());
-			// TODO : sécuriser des injections SQL ?
+			valeurs.put(COLUMN_IMAGE, item.getByteArrayImage());
 			return db.insert(TABLE_ITEMS, null, valeurs);
 		}
+		return -1;
+	}
+
+	
+	public long insert(ArrayList<Item> items) {
+		
+         db.beginTransaction();
+         for (int i = 0; i < items.size(); i++) {
+        	 insert(items.get(i));
+         }
+         db.setTransactionSuccessful();	
+         db.endTransaction();	
+         Log.i("insert array", "array inserted");
+         
 		return -1;
 	}
 
@@ -74,30 +90,31 @@ public class ItemDBAdapter {
 			valeurs.put(COLUMN_DATE, item.getDate());
 			valeurs.put(COLUMN_RATING, item.getRating());
 			valeurs.put(COLUMN_BOOL, item.getBool());
+			valeurs.put(COLUMN_IMAGE, item.getByteArrayImage());
 			// TODO : sécuriser des injections SQL ?
 			return db.update(TABLE_ITEMS, valeurs, COLUMN_ID + " = " + item.getId(), null);
 		}
 		return -1;
 	}
 
+	public int getCount() {
+		// TODO : sécuriser des injections SQL
+		Cursor c = db.query(TABLE_ITEMS, new String[] {COLUMN_ID}, null, null, null, null, null, null);
+		return c.getCount();				
+	}
+
 
 	// return Item si trouvé, null si non trouvé
 	public Item getItemById(int id) {
-		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, COLUMN_ID + " = " + id, null, null, null, null);
-		if (c.getCount() != 0) {
-			c.moveToFirst();
-			return cursorToItem(c);
-		}
-		else {
-			return null;
-		}
+		Cursor c = getCursorItemById(id);
+		if (c.getCount() != 0) { return cursorToItem(c);}
+		else                   { return null; }
 	}
 
 	
 	public Cursor getCursorItemById(int id) {
-		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, COLUMN_ID + " = " + id, null, null, null, null);
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, COLUMN_ID + " = ? ", new String[] {"" + id}, null, null, null, null);
+		c.moveToFirst();
 		return c;
 	}
 
@@ -109,6 +126,7 @@ public class ItemDBAdapter {
 		item.setDate(c.getString(c.getColumnIndex(COLUMN_DATE)));
 		item.setRating(c.getFloat(c.getColumnIndex(COLUMN_RATING)));		
 		item.setBool(c.getInt(c.getColumnIndex(COLUMN_BOOL)));
+		item.setByteArrayImage(c.getBlob(c.getColumnIndex(COLUMN_IMAGE)));
 		return item;
 	}
 
@@ -116,10 +134,8 @@ public class ItemDBAdapter {
 	// retourne List<Items> vide si 
 	public ArrayList<Item> getAll() {
 		ArrayList<Item> items = new ArrayList<Item>();
-		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, COLUMN_RATING + " DESC");
+		Cursor c = getCursorAll();
 		int i = 0;
-		c.moveToFirst();
 		while ( i < c.getCount() ) {
 			items.add(cursorToItem(c));
 			c.moveToNext();
@@ -128,17 +144,29 @@ public class ItemDBAdapter {
 		return items;
 	}
 
+	// private Cursor c;
 	
 	public Cursor getCursorAll() {
 		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, COLUMN_RATING + " DESC");
+		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, null, "1000");
+		Log.i("getCursorAll()", "Threading");
+		c.moveToFirst();
 		return c;
 	}
+	
+	/**
+	public Cursor getCursorAll(String[] colonnes, String where, String[] whereArgs, String groupBy, String having, String orderBy) {
+		// TODO : sécuriser des injections SQL
+		// TODO : terminer		
+		Cursor c = db.query(TABLE_ITEMS, colonnes, where, whereArgs, groupBy, having, orderBy);
+		c.moveToFirst();		
+		return c;
+	}
+	*/
 
 	
 	public ArrayList<Item> getOnlyWithDate() {
 		ArrayList<Item> items = new ArrayList<Item>();
-		// TODO : sécuriser des injections SQL
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, "DATE IS NOT NULL", null, null, null, null);
 		int i = 0;
 		c.moveToFirst();
@@ -203,22 +231,19 @@ public class ItemDBAdapter {
 		Log.i("db.delete", Integer.toString(i));
 	}
 
-	
-	public int getCount() {
-		// TODO : sécuriser des injections SQL
-		Cursor c = db.query(TABLE_ITEMS, new String[] {COLUMN_ID}, null, null, null, null, null, null);
-		return c.getCount();				
+	public void deleteAll() {
+		db.delete(TABLE_ITEMS, null, null);
 	}
 
 	
 	public Item getFirst() {
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, null, " 1 ");
-		if (c.getCount() != 0) {
+		if ( c.getCount() != 0 ) {
 			c.moveToFirst();
 			return cursorToItem(c);
 		}
 		else {
 			return null;
 		}
-	}
+	}	
 }
