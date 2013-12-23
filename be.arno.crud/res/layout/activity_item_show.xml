@@ -12,10 +12,10 @@
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/itemShow_bttnEdit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_above = "@+id/itemShow_skbrPosition" >
+        android:layout_alignParentTop="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,19 +89,9 @@
                 android:layout_height="wrap_content"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
         </LinearLayout>
-
     </ScrollView>
 
-    <SeekBar
-        android:id="@+id/itemShow_skbrPosition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/itemShow_lnltPrevNext"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
-    
     <Button
         android:id="@+id/itemShow_bttnEdit"
         android:layout_width="match_parent"
@@ -118,42 +108,47 @@
         android:layout_alignParentLeft="true"
         android:text="@string/delete" />
 
-	<LinearLayout
-        android:id="@+id/itemShow_lnltPrevNext"
+    <ImageView
+        android:id="@+id/itemShow_imvwImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher" />
+
+    <Button
+        android:id="@+id/itemShow_bttnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemShow_bttnEdit"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/itemShow_txvwPosition"
+        android:text="@string/next" />
+
+    <Button
+        android:id="@+id/itemShow_bttnPrev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scrollView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/itemShow_txvwPosition"
+        android:text="@string/previous" />
+
+    <SeekBar
+        android:id="@+id/itemShow_skbrPosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-     	android:layout_above="@+id/itemShow_bttnEdit">
-           
-	    <Button
-	        android:id="@+id/itemShow_bttnPrev"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight=".5"
-	        android:text="@string/previous" />
+        android:layout_alignBottom="@+id/scrollView1"
+        android:layout_toLeftOf="@+id/itemShow_bttnNext"
+        android:layout_toRightOf="@+id/itemShow_bttnPrev" />
 
-	    <TextView
-	        android:id="@+id/itemShow_txvwPosition"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	    <Button
-	        android:id="@+id/itemShow_bttnNext"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight=".5"
-	        android:text="@string/next" />
-   
-    </LinearLayout>
-
-	<ImageView
-	    android:id="@+id/itemShow_imvwImage"
-	    android:layout_width="200dp"
-	    android:layout_height="200dp"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignParentTop="true"
-	    android:scaleType="fitXY"
-	    android:src="@drawable/ic_launcher" />
+    <TextView
+        android:id="@+id/itemShow_txvwPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemShow_skbrPosition"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

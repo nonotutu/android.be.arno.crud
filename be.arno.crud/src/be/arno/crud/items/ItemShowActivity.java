@@ -12,18 +12,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 
 public class ItemShowActivity extends Activity {
 
@@ -40,6 +38,7 @@ public class ItemShowActivity extends Activity {
 	private ArrayList<Integer> ids;
 	private int last;
 
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
 		case myApp.CODE_ACTIVITY_EDIT_ITEM:
@@ -145,6 +144,8 @@ public class ItemShowActivity extends Activity {
 
 		// afficher les informations
 		fillFields();
+		
+		
 	}
 
 
@@ -226,5 +227,7 @@ public class ItemShowActivity extends Activity {
 		.create();
 		return d;
 	    }
+
+	
 
 }

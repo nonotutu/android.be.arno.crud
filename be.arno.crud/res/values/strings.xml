@@ -49,7 +49,7 @@
     <string name="test">Test</string>
     <string name="fill">Fill</string>
     <string name="deleteAll">Delete all</string>
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
+    <string name="previous">←</string>
+    <string name="next">→</string>
     
 </resources>

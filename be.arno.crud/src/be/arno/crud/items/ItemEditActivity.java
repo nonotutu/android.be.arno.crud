@@ -32,17 +32,18 @@ public class ItemEditActivity extends Activity {
 	private ToggleButton tgbtBool;
 	private ImageButton imbtImage;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_edit);
 
-		edtxName = (EditText)findViewById(R.id.itemForm_edtxName);
-		dtpkDate = (DatePicker)findViewById(R.id.itemForm_dtpkDate);
-		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
-		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtbrRating);
-		tgbtBool = (ToggleButton)findViewById(R.id.itemForm_tgbtBool);
-		imbtImage = (ImageButton)findViewById(R.id.itemForm_imbtImage);
+		edtxName =   (EditText)    findViewById(R.id.itemForm_edtxName);
+		dtpkDate =   (DatePicker)  findViewById(R.id.itemForm_dtpkDate);
+		swchDate =   (Switch)      findViewById(R.id.itemForm_swchDate);
+		rtbrRating = (RatingBar)   findViewById(R.id.itemForm_rtbrRating);
+		tgbtBool =   (ToggleButton)findViewById(R.id.itemForm_tgbtBool);
+		imbtImage =  (ImageButton) findViewById(R.id.itemForm_imbtImage);
 		
 		Button bttnUpdate = (Button)findViewById(R.id.itemEdit_bttnUpdate);
 		bttnUpdate.setOnClickListener(new OnClickListener() {
@@ -104,7 +105,7 @@ public class ItemEditActivity extends Activity {
 	
 
 	private long updateItemInDB() {
-
+		
 		String date = null;
 		Long l;
 
