@@ -17,24 +17,7 @@ public class Item {
 	private Bitmap image;
 
 	public Item() {}
-	
-	/**
-	public Item(String name, String date, float rating, int bool) {
-		this.name = name;
-		this.date = date;
-		this.rating = rating;
-		this.bool = bool;
-		this.image = image;
-	}
-	
-	public Item(int id, String name, String date, float rating, int bool) {
-		this.id = id;
-		this.name = name;
-		this.date = date;
-		this.rating = rating;
-		this.bool = bool;
-		this.image = image;
-	}*/
+
 	
 	public void setImage(Bitmap image) {
 		this.image = image;
@@ -48,6 +31,7 @@ public class Item {
 		byte[] byteArray = null;
 		if ( this.image != null ) {
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			// TODO : comprendre
 			this.image.compress(Bitmap.CompressFormat.PNG, 100, stream);
 			byteArray = stream.toByteArray();
 		}
@@ -56,6 +40,7 @@ public class Item {
 	
 	public void setByteArrayImage(byte[] byteArray) {
 		if ( byteArray != null ) {
+			// TODO : comprendre
 			Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 			this.image = bitmap;
 		}

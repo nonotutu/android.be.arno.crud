@@ -5,6 +5,11 @@ import android.content.Context;
 
 public class App extends Application {
 
+	
+	//MyApplication which extends Application like so:
+
+		
+	/*
 	// Utile pour : - récupérer le context dans une classe statique
 	//				- ?
 	
@@ -18,5 +23,5 @@ public class App extends Application {
 
     public static Context getContext(){
         return mContext;
-    }
+    }*/
 }

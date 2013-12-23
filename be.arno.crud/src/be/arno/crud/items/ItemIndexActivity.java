@@ -10,6 +10,7 @@ import be.arno.crud.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -95,9 +96,9 @@ public class ItemIndexActivity extends Activity {
 					int count = itemAdapter.getCount();
 					itemAdapter.close();
 					
-					if ( count > 0 )
-						Toast.makeText(getApplicationContext(), "Impossible to fill a non empty list.", Toast.LENGTH_LONG).show();
-					else {
+					//if ( count > 0 )
+						// Toast.makeText(getApplicationContext(), "Impossible to fill a non empty list.", Toast.LENGTH_LONG).show();
+					//else {
 						new Thread(
 							new Runnable() {
 								public void run() {
@@ -108,7 +109,7 @@ public class ItemIndexActivity extends Activity {
 						}}).start();			
 						Toast.makeText(getApplicationContext(), "Instruction sent.", Toast.LENGTH_LONG).show();
 						onRestart();
-					}
+					//}
 
 					return false;
 		}});
@@ -150,8 +151,6 @@ public class ItemIndexActivity extends Activity {
 			dd = "" + (rand.nextInt(28)+1);
 			if (dd.length() < 2) dd = "0" + dd;
 			
-			Log.i("fillWithPokemons", "10");
-			
 			item = new Item();
 				item.setName(Pokemons.LIST[i]);
 				item.setDate((rand.nextInt(2100-1900)+1900) + "-" + mm + "-" + dd);
@@ -165,14 +164,16 @@ public class ItemIndexActivity extends Activity {
 				Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), res);
 				item.setImage(mBitmap);
 			
-			items.add(item);
+				itemAdapter.insert(item);
+			
+			// items.add(item);
 			
 			i+=1;
 			}
 		}
 
 		Log.i("static", "array filled");
-		itemAdapter.insert(items);
+		//itemAdapter.insert(items);
 	}
 	
 	

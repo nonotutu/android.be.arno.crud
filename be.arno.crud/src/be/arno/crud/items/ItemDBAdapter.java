@@ -3,16 +3,21 @@ package be.arno.crud.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.arno.crud.myApp;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 
 public class ItemDBAdapter {
 
+    public static String Lock = "dblock";
+	
 	public static final String DB_NAME       = "itemsDB";
 	public static final String TABLE_ITEMS   = "items";
 	public static final String COLUMN_ID     = "_id";
@@ -36,9 +41,9 @@ public class ItemDBAdapter {
 
 
 	public ItemDBAdapter openWritable() {
-		itemDBHelper = new ItemDBHelper(context, DB_NAME, null, VERSION_NUMBER);
-		db = itemDBHelper.getWritableDatabase();
-		return this;
+			itemDBHelper = new ItemDBHelper(context, DB_NAME, null, VERSION_NUMBER);
+			db = itemDBHelper.getWritableDatabase();
+			return this;
 	}
 
 
@@ -54,20 +59,20 @@ public class ItemDBAdapter {
 		itemDBHelper.close();
 	}
 
-
 	public long insert(Item item) {
-		if ( item.isValid() ) {
-			ContentValues valeurs = new ContentValues();
-			valeurs.put(COLUMN_NAME, item.getName());
-			valeurs.put(COLUMN_DATE, item.getDate());
-			valeurs.put(COLUMN_RATING, item.getRating());
-			valeurs.put(COLUMN_BOOL, item.getBool());
-			valeurs.put(COLUMN_IMAGE, item.getByteArrayImage());
-			return db.insert(TABLE_ITEMS, null, valeurs);
-		}
+			if ( item.isValid() ) {
+				ContentValues valeurs = new ContentValues();
+				valeurs.put(COLUMN_NAME, item.getName());
+				valeurs.put(COLUMN_DATE, item.getDate());
+				valeurs.put(COLUMN_RATING, item.getRating());
+				valeurs.put(COLUMN_BOOL, item.getBool());
+				valeurs.put(COLUMN_IMAGE, item.getByteArrayImage());
+				long l = -1;
+				l = db.insert(TABLE_ITEMS, null, valeurs);			
+				return l;
+			}
 		return -1;
-	}
-
+	}	          
 	
 	public long insert(ArrayList<Item> items) {
 		
@@ -76,7 +81,7 @@ public class ItemDBAdapter {
         	 insert(items.get(i));
          }
          db.setTransactionSuccessful();	
-         db.endTransaction();	
+         db.endTransaction();
          Log.i("insert array", "array inserted");
          
 		return -1;
@@ -130,6 +135,15 @@ public class ItemDBAdapter {
 		return item;
 	}
 
+	private Item cursorToItemLight(Cursor c) {
+		Item item = new Item();
+		item.setId            (c.getInt   (c.getColumnIndex(COLUMN_ID)));
+		item.setName          (c.getString(c.getColumnIndex(COLUMN_NAME)));
+		item.setDate          (c.getString(c.getColumnIndex(COLUMN_DATE)));
+		item.setBool          (c.getInt   (c.getColumnIndex(COLUMN_BOOL)));
+		return item;
+	}
+
 
 	// retourne List<Items> vide si 
 	public ArrayList<Item> getAll() {
@@ -144,26 +158,30 @@ public class ItemDBAdapter {
 		return items;
 	}
 
-	// private Cursor c;
+	// retourne List<Items> vide si 
+	public ArrayList<Item> getAllLight() {
+		ArrayList<Item> items = new ArrayList<Item>();
+		Cursor c = getCursorAllLight();
+		int i = 0;
+		while ( i < c.getCount() ) {
+			items.add(cursorToItemLight(c));
+			c.moveToNext();
+			i = i + 1;
+		}
+		return items;
+	}
 	
 	public Cursor getCursorAll() {
-		// TODO : sécuriser des injections SQL
 		Cursor c = db.query(TABLE_ITEMS, ALL_COLUMNS, null, null, null, null, null, "1000");
-		Log.i("getCursorAll()", "Threading");
 		c.moveToFirst();
 		return c;
 	}
-	
-	/**
-	public Cursor getCursorAll(String[] colonnes, String where, String[] whereArgs, String groupBy, String having, String orderBy) {
-		// TODO : sécuriser des injections SQL
-		// TODO : terminer		
-		Cursor c = db.query(TABLE_ITEMS, colonnes, where, whereArgs, groupBy, having, orderBy);
-		c.moveToFirst();		
+
+	public Cursor getCursorAllLight() {
+		Cursor c = db.query(TABLE_ITEMS, new String[] { COLUMN_ID, COLUMN_NAME, COLUMN_DATE, COLUMN_BOOL }, null, null, null, null, null, "1000");
+		c.moveToFirst();
 		return c;
 	}
-	*/
-
 	
 	public ArrayList<Item> getOnlyWithDate() {
 		ArrayList<Item> items = new ArrayList<Item>();

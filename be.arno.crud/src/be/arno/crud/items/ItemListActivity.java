@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.util.Log;
@@ -142,7 +143,7 @@ public class ItemListActivity extends Activity {
 				items = itemAdapter.getOnlyBool(0);
 				break;
 			default:
-				items = itemAdapter.getAll();
+				items = itemAdapter.getAllLight();
 				break;
 			}
 			
@@ -187,12 +188,20 @@ public class ItemListActivity extends Activity {
                     	listFilter = filterListArrayAdapter.getItem(which);
                 		dialog.dismiss();
                 }});
+        /* TODO : ok pour API 16 */
+        adb.setOnCancelListener(
+        		new OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+        				fillList(getList());				
+				}});
+        /* TODO : NOT ok pour API 16
         adb.setOnDismissListener(
         		new OnDismissListener() {
         			@Override
         			public void onDismiss(DialogInterface dialog) {
         				fillList(getList());				
-        		}});
+        		}});*/
 		return adb;
         }
 	
