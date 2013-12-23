@@ -26,14 +26,4 @@
         android:layout_alignParentTop="true"
         android:text="@string/items" />
 
-    <ImageView
-        android:id="@+id/main_imvwImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/main_bttnClose"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/main_bttnClose"
-        android:layout_below="@+id/main_bttnClose"
-        android:src="@drawable/ic_launcher" />
-
 </RelativeLayout>

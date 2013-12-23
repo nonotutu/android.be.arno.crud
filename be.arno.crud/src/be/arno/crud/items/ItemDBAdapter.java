@@ -121,12 +121,12 @@ public class ItemDBAdapter {
 	
 	private Item cursorToItem(Cursor c) {
 		Item item = new Item();
-		item.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
-		item.setName(c.getString(c.getColumnIndex(COLUMN_NAME)));
-		item.setDate(c.getString(c.getColumnIndex(COLUMN_DATE)));
-		item.setRating(c.getFloat(c.getColumnIndex(COLUMN_RATING)));		
-		item.setBool(c.getInt(c.getColumnIndex(COLUMN_BOOL)));
-		item.setByteArrayImage(c.getBlob(c.getColumnIndex(COLUMN_IMAGE)));
+		item.setId            (c.getInt   (c.getColumnIndex(COLUMN_ID)));
+		item.setName          (c.getString(c.getColumnIndex(COLUMN_NAME)));
+		item.setDate          (c.getString(c.getColumnIndex(COLUMN_DATE)));
+		item.setRating        (c.getFloat (c.getColumnIndex(COLUMN_RATING)));		
+		item.setBool          (c.getInt   (c.getColumnIndex(COLUMN_BOOL)));
+		item.setByteArrayImage(c.getBlob  (c.getColumnIndex(COLUMN_IMAGE)));
 		return item;
 	}
 

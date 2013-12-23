@@ -64,14 +64,14 @@ public class ItemShowActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_show);
 
-		txvwId = (TextView)findViewById(R.id.itemShow_txvwId);
-		txvwName = (TextView)findViewById(R.id.itemShow_txvwName);
-		txvwDate = (TextView)findViewById(R.id.itemShow_txvwDate);
-		rtbrRating = (RatingBar)findViewById(R.id.itemShow_rtbrRating);
-		txvwBool = (TextView)findViewById(R.id.itemShow_txvwBool);
-		skbrPosition = (SeekBar)findViewById(R.id.itemShow_skbrPosition);
-		txvwPosition = (TextView)findViewById(R.id.itemShow_txvwPosition);
-		imvwImage = (ImageView)findViewById(R.id.itemShow_imvwImage);
+		txvwId =       (TextView) findViewById(R.id.itemShow_txvwId);
+		txvwName =     (TextView) findViewById(R.id.itemShow_txvwName);
+		txvwDate =     (TextView) findViewById(R.id.itemShow_txvwDate);
+		rtbrRating =   (RatingBar)findViewById(R.id.itemShow_rtbrRating);
+		txvwBool =     (TextView) findViewById(R.id.itemShow_txvwBool);
+		skbrPosition = (SeekBar)  findViewById(R.id.itemShow_skbrPosition);
+		txvwPosition = (TextView) findViewById(R.id.itemShow_txvwPosition);
+		imvwImage =    (ImageView)findViewById(R.id.itemShow_imvwImage);
 		
 		Button bttnDelete = (Button)findViewById(R.id.itemShow_bttnDelete);
 		bttnDelete.setOnClickListener(new OnClickListener() {
@@ -200,7 +200,7 @@ public class ItemShowActivity extends Activity {
 			txvwDate.setText(item.getDate());
 			rtbrRating.setRating(item.getRating());
 			txvwBool.setText(""+item.getBool());
-			txvwBool.setText(item.getImage()==null?"image null":"image non null");
+			//txvwBool.setText(item.getImage()==null?"image null":"image non null");
 			imvwImage.setImageBitmap(item.getImage());
 			skbrPosition.setProgress(last);
 			txvwPosition.setText( " " + (last+1) + " / " + ids.size() + " ");

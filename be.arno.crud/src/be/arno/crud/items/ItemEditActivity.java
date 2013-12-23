@@ -11,12 +11,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.ToggleButton;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.app.Activity;
+import android.graphics.drawable.BitmapDrawable;
 
 
 public class ItemEditActivity extends Activity {
@@ -28,6 +30,7 @@ public class ItemEditActivity extends Activity {
 	private Switch swchDate;
 	private RatingBar rtbrRating;
 	private ToggleButton tgbtBool;
+	private ImageButton imbtImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class ItemEditActivity extends Activity {
 		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
 		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtbrRating);
 		tgbtBool = (ToggleButton)findViewById(R.id.itemForm_tgbtBool);
+		imbtImage = (ImageButton)findViewById(R.id.itemForm_imbtImage);
 		
 		Button bttnUpdate = (Button)findViewById(R.id.itemEdit_bttnUpdate);
 		bttnUpdate.setOnClickListener(new OnClickListener() {
@@ -108,13 +112,13 @@ public class ItemEditActivity extends Activity {
 			date = Helper.dateInts2String(dtpkDate.getYear(), dtpkDate.getMonth(), dtpkDate.getDayOfMonth());
 
 		Item i = new Item();
-		i.setId(item.getId());
-		i.setName(edtxName.getText().toString());
-		i.setDate(date);
+		i.setId    (item.getId());
+		i.setName  (edtxName.getText().toString());
+		i.setDate  (date);
 		i.setRating(rtbrRating.getRating());
-		i.setBool(tgbtBool.isChecked()?1:0);
-		// TODO : i.setImage
-		
+		i.setBool  (tgbtBool.isChecked()?1:0);
+		i.setImage (((BitmapDrawable)imbtImage.getDrawable()).getBitmap() );
+				
 		ItemDBAdapter itemAdapter = new ItemDBAdapter(getApplicationContext());
 		itemAdapter.openWritable();
 		l = itemAdapter.update(i);
@@ -134,6 +138,7 @@ public class ItemEditActivity extends Activity {
 			}
 			rtbrRating.setRating(item.getRating());
 			tgbtBool.setChecked(item.getBool()==1?true:false);
+			imbtImage.setImageBitmap(item.getImage());			
 		} else {
 			Toast.makeText(getApplicationContext(), "Item doesn't exist", Toast.LENGTH_LONG).show();
 			finish();

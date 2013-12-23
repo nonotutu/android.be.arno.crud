@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class ItemNewActivity extends Activity {
 	private Switch swchDate;
 	private RatingBar rtbrRating;
 	private ToggleButton tgbtBool;
+	private ImageButton imbtImage;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class ItemNewActivity extends Activity {
 		swchDate = (Switch)findViewById(R.id.itemForm_swchDate);
 		rtbrRating = (RatingBar)findViewById(R.id.itemForm_rtbrRating);
 		tgbtBool = (ToggleButton)findViewById(R.id.itemForm_tgbtBool);
-
+		imbtImage = (ImageButton)findViewById(R.id.itemForm_imbtImage);
 		
 		Button bttnSave = (Button)findViewById(R.id.itemNew_bttnUpdate);
 		bttnSave.setOnClickListener(new OnClickListener() {
